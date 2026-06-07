@@ -1,0 +1,12 @@
+{
+  "customerId": "YOUR_GOOGLE_ADS_CUSTOMER_ID",
+  "developerToken": "YOUR_GOOGLE_ADS_DEVELOPER_TOKEN",
+  "clientId": "YOUR_OAUTH2_CLIENT_ID",
+  "clientSecret": "YOUR_OAUTH2_CLIENT_SECRET",
+  "refreshToken": "YOUR_OAUTH2_REFRESH_TOKEN",
+  "googleAdsVersion": "v21",
+  "loginCustomerId": "",
+  "accessToken": "",
+  "tokenExpiry": 0,
+  "framework": ""
+}
