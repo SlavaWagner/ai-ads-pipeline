@@ -4,7 +4,7 @@
   "clientId": "YOUR_OAUTH2_CLIENT_ID",
   "clientSecret": "YOUR_OAUTH2_CLIENT_SECRET",
   "refreshToken": "YOUR_OAUTH2_REFRESH_TOKEN",
-  "googleAdsVersion": "v21",
+  "googleAdsVersion": "v24",
   "loginCustomerId": "",
   "accessToken": "",
   "tokenExpiry": 0,

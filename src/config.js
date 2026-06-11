@@ -12,7 +12,7 @@ const DEFAULT_CONFIG = {
   clientId: '',
   clientSecret: '',
   refreshToken: '',
-  googleAdsVersion: 'v21',
+  googleAdsVersion: 'v24',
   loginCustomerId: '',
   accessToken: '',
   tokenExpiry: 0,
