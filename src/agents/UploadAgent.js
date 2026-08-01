@@ -56,4 +56,38 @@ export default class UploadAgent extends BaseAgent {
       throw error;
     }
   }
+
+  /**
+   * Formats and uploads a PMax Asset Group to Google Ads as PAUSED.
+   * @param {object} config - App config
+   * @param {string} accessToken - OAuth2 access token
+   * @param {string} campaignResourceName - Target Campaign Resource Name
+   * @param {string} finalUrl - Target Final URL
+   * @param {object} reviewedPMaxAd - Checked headlines, longHeadlines, and descriptions
+   * @param {Array} [sourceImageResourceNames] - Optional source image resource names
+   * @param {string} [customGroupName] - Optional name for the new PMax Asset Group
+   * @returns {Promise<object>} Upload response from the API
+   */
+  async uploadPMaxAssetGroup(config, accessToken, campaignResourceName, finalUrl, reviewedPMaxAd, sourceImageResourceNames = [], customGroupName = null) {
+    this.log(`Building PMax upload payload for Campaign: ${campaignResourceName}...`);
+    try {
+      const { createPMaxAssetGroup } = await import('../googleAds.js');
+      const response = await createPMaxAssetGroup(
+        config,
+        accessToken,
+        campaignResourceName,
+        finalUrl,
+        reviewedPMaxAd.headlines,
+        reviewedPMaxAd.longHeadlines,
+        reviewedPMaxAd.descriptions,
+        sourceImageResourceNames,
+        customGroupName
+      );
+      this.log(`Successfully created PMax Asset Group: "${response.groupName}" (${response.createdAssetsCount} text assets attached).`);
+      return response;
+    } catch (error) {
+      this.log(`Failed PMax asset group creation: ${error.message}`);
+      throw error;
+    }
+  }
 }

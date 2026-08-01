@@ -102,6 +102,45 @@ async function runTests() {
     failedTests++;
   }
 
+  // Test 3: Programmatic Sanitizer for PMax Asset Groups in ReviewAgent
+  try {
+    console.log(chalk.yellow('\nTest 3: ReviewAgent PMax Asset Group Compliance Sanitizer...'));
+    const agent = new ReviewAgent();
+
+    const badPMaxDraft = {
+      headlines: [
+        'Super ROI Boost!',
+        'Jetzt Sofort Handeln.'
+      ],
+      longHeadlines: [
+        'Dies ist ein extrem langer PMax Titel, der die Schwelle von neunzig Zeichen überschreitet und daher unbedingt gekürzt werden muss um konform zu sein!',
+        'Bewiesener ROI Boost für Ihre Performance Max Kampagne.'
+      ],
+      descriptions: [
+        'Jetzt sofort ROI optimieren!',
+        'Nachhaltiges Wachstum für Ihr Business.'
+      ]
+    };
+
+    const sanitizedPMax = agent.programmaticSanitizationPMax(badPMaxDraft);
+
+    assert(sanitizedPMax.headlines.length === 15, `Expected 15 PMax headlines, got ${sanitizedPMax.headlines.length}`);
+    assert(sanitizedPMax.longHeadlines.length === 4, `Expected 4 PMax long headlines, got ${sanitizedPMax.longHeadlines.length}`);
+    assert(sanitizedPMax.descriptions.length === 4, `Expected 4 PMax descriptions, got ${sanitizedPMax.descriptions.length}`);
+
+    assert(sanitizedPMax.headlines.every(h => h.length <= 30), 'All PMax headlines must be <= 30 chars');
+    assert(sanitizedPMax.longHeadlines.every(lh => lh.length <= 90), 'All PMax long headlines must be <= 90 chars');
+    assert(sanitizedPMax.descriptions.every(d => d.length <= 90), 'All PMax descriptions must be <= 90 chars');
+
+    assert(sanitizedPMax.longHeadlines.every(lh => !lh.endsWith('.')), 'No long headlines should end with a period');
+    assert(!sanitizedPMax.longHeadlines.join(' ').includes('!'), 'Long headlines should not contain exclamation marks');
+    assert(!/ROI/i.test(sanitizedPMax.longHeadlines.join(' ')), 'Long headlines should not contain banned word "ROI"');
+
+  } catch (err) {
+    console.log(chalk.red(`  ✖ FAILED: PMax Sanitizer test error: ${err.message}`));
+    failedTests++;
+  }
+
   // Summary
   console.log(chalk.bold.cyan('\n=== Test Summary ==='));
   console.log(chalk.bold.green(`Passed: ${passedTests}`));

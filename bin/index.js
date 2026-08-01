@@ -362,6 +362,51 @@ program
     }
   });
 
+// RUN PMAX Command
+program
+  .command('run-pmax')
+  .description('Run the 4-agent PMax Asset Group creation and upload pipeline')
+  .option('-f, --framework <name>', 'Specific framework for asset creation (angles, audiences, business, copywritings, sophistication)')
+  .action(async (options) => {
+    console.log(chalk.bold.cyan('\n=== Google Ads PMax Asset Group Optimization Pipeline ===\n'));
+    
+    const config = getConfig();
+    const activeFramework = options.framework || config.framework || '';
+
+    if (activeFramework) {
+      console.log(chalk.cyan(`Selected framework for asset creation: ${activeFramework}\n`));
+    } else {
+      console.log(chalk.cyan('No specific framework selected. Using default prompt (Angles).\n'));
+    }
+
+    if (!config.refreshToken) {
+      console.log(chalk.red('Error: Google Ads Refresh Token is missing. Please run setup first: npm run setup'));
+      return;
+    }
+
+    try {
+      console.log(chalk.yellow('Validating Google Ads OAuth2 Access Token...'));
+      const accessToken = await getAccessToken();
+      console.log(chalk.green('✔ Access Token ready.'));
+
+      console.log(chalk.yellow('Loading Orchestrator Agent...'));
+      const orchestrator = new OrchestratorAgent();
+      console.log(chalk.green('✔ Agent loaded.'));
+
+      const results = await orchestrator.runPMaxPipeline(config, accessToken, activeFramework);
+
+      if (results.length > 0) {
+        const logPath = saveRunLog(results);
+        console.log(chalk.green(`\n✔ PMax Pipeline execution logged to:\n  ${logPath}\n`));
+      }
+
+      console.log(chalk.bold.green('=== PMax Pipeline execution finished ===\n'));
+
+    } catch (error) {
+      console.error(chalk.bold.red('\n✖ PMax Pipeline aborted:'), error.message);
+    }
+  });
+
 // MANUAL TOKEN REFRESH Command
 program
   .command('refresh-token')

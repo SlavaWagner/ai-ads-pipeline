@@ -124,4 +124,114 @@ Gib das Ergebnis zwingend als valides JSON-Objekt zurück.
     }
     return JSON.parse(clean);
   }
+
+  /**
+   * Generates a new Performance Max Asset Group alternative.
+   * @param {object} pmaxGroup - PMax asset group object
+   * @param {string} finalUrl - Target landing page URL
+   * @param {string} [frameworkName] - Optional framework name chosen by user
+   * @returns {Promise<object>} Draft headlines, longHeadlines, and descriptions
+   */
+  async createPMaxAlternative(pmaxGroup, finalUrl, frameworkName) {
+    this.log(`Scraping context from landing page: ${finalUrl}`);
+    const scrapeResult = await this.runSkill(this.scrapeSkill, finalUrl);
+    
+    let basePrompt = this.systemPrompt;
+    const selectedFramework = frameworkName || 'angles';
+    const frameworkPrompt = this.getFrameworkPrompt(selectedFramework);
+    if (frameworkPrompt) {
+      basePrompt = frameworkPrompt;
+    }
+
+    const headlinesStr = (pmaxGroup.headlines || []).map(h => `"${h}"`).join(', ');
+    const descriptionsStr = (pmaxGroup.descriptions || []).map(d => `"${d}"`).join(', ');
+
+    const customizedSystemPrompt = basePrompt
+      .replace(/\\?\[INPUT\\?_HEADLINES\\?\]/g, headlinesStr)
+      .replace(/\\?\[INPUT\\?_DESCRIPTIONS\\?\]/g, descriptionsStr)
+      .replace(/\\?\[INPUT\\?_FINAL\\?_URL\\?\]/g, finalUrl);
+
+    const userPrompt = `
+Gescrapteter Inhalt der Landingpage (${finalUrl}):
+==================================================
+${scrapeResult.textContent}
+==================================================
+
+Framework-Fokus: ${selectedFramework}
+
+Identifiziere basierend auf diesen Daten einen neuen Angle (Pain Point + Solution Frame) und erstelle die vollständige Performance Max (PMax) Asset-Klassifikation:
+- Exakt 15 Anzeigentitel (Headlines) mit maximal 30 Zeichen.
+- Exakt 4 Lange Anzeigentitel (Long Headlines) mit maximal 90 Zeichen.
+- Exakt 4 Beschreibungen (Descriptions) mit maximal 90 Zeichen.
+
+Wichtige Regeln:
+1. Keine Ausrufezeichen (!)
+2. Keine Punkte am Satzende von Headlines und Long Headlines.
+3. Verwende keine Begriffe wie "ROI", "Boost", "Jetzt", "Sofort", "Bewiesen".
+4. Verfasse die Texte in der Sprache der Landingpage.
+
+Gib das Ergebnis zwingend als valides JSON-Objekt im folgenden Format zurück:
+{
+  "angle": {
+    "painPoint": "Kernproblem der Zielgruppe",
+    "solutionFrame": "Lösungspositionierung"
+  },
+  "headlines": [
+    "Headline 1",
+    "Headline 2",
+    "Headline 3",
+    "Headline 4",
+    "Headline 5",
+    "Headline 6",
+    "Headline 7",
+    "Headline 8",
+    "Headline 9",
+    "Headline 10",
+    "Headline 11",
+    "Headline 12",
+    "Headline 13",
+    "Headline 14",
+    "Headline 15"
+  ],
+  "longHeadlines": [
+    "Long Headline 1",
+    "Long Headline 2",
+    "Long Headline 3",
+    "Long Headline 4"
+  ],
+  "descriptions": [
+    "Description 1",
+    "Description 2",
+    "Description 3",
+    "Description 4"
+  ]
+}
+`;
+
+    const appConfig = getConfig();
+    this.log(`Querying Gemini model for PMax copywriting alternatives (Framework: ${selectedFramework})...`);
+    const rawResponse = await generateText(
+      appConfig.geminiApiKey,
+      customizedSystemPrompt,
+      userPrompt,
+      this.model,
+      true // JSON Mode
+    );
+
+    try {
+      const parsed = this.parseJsonResponse(rawResponse);
+      this.log(`Angle identified for PMax Asset Group:`);
+      this.log(`  Pain Point: ${parsed.angle?.painPoint || 'N/A'}`);
+      this.log(`  Solution Frame: ${parsed.angle?.solutionFrame || 'N/A'}`);
+      this.log(`Generated ${parsed.headlines?.length || 0} headlines, ${parsed.longHeadlines?.length || 0} long headlines, and ${parsed.descriptions?.length || 0} descriptions.`);
+      return {
+        ...parsed,
+        scrapedContext: scrapeResult.textContent
+      };
+    } catch (parseError) {
+      this.log(`Error parsing JSON response for PMax: ${parseError.message}`);
+      this.log(`Raw response was:\n${rawResponse}`);
+      throw new Error(`Copywriter LLM did not return valid PMax JSON structure: ${parseError.message}`);
+    }
+  }
 }

@@ -157,3 +157,195 @@ export async function fetchKeywordIdeas(config, accessToken, seedKeyword) {
   }
 }
 
+/**
+ * Fetches up to 10 active Performance Max Asset Groups from Google Ads using searchStream.
+ * @param {object} config - Configuration object
+ * @param {string} accessToken - Current OAuth2 access token
+ * @returns {Promise<Array>} Array of parsed PMax asset group objects
+ */
+export async function fetchActivePMaxAssetGroups(config, accessToken) {
+  const customerId = config.customerId.replace(/-/g, '');
+  const url = `https://googleads.googleapis.com/${config.googleAdsVersion}/customers/${customerId}/googleAds:searchStream`;
+  
+  const query = `
+    SELECT 
+      asset_group.id, 
+      asset_group.name, 
+      asset_group.resource_name, 
+      asset_group.campaign, 
+      asset_group.status, 
+      asset_group.final_urls, 
+      campaign.id, 
+      campaign.name, 
+      campaign.resource_name, 
+      campaign.status 
+    FROM asset_group 
+    WHERE campaign.advertising_channel_type = 'PERFORMANCE_MAX' 
+      AND asset_group.status IN ('ENABLED', 'PAUSED') 
+      AND campaign.status IN ('ENABLED', 'PAUSED') 
+    LIMIT 10
+  `.replace(/\s+/g, ' ').trim();
+
+  try {
+    const response = await axios.post(url, { query }, {
+      headers: getHeaders(config, accessToken)
+    });
+
+    let allResults = [];
+    if (Array.isArray(response.data)) {
+      for (const chunk of response.data) {
+        if (chunk.results && Array.isArray(chunk.results)) {
+          allResults.push(...chunk.results);
+        }
+      }
+    } else if (response.data && response.data.results) {
+      allResults = response.data.results;
+    }
+
+    return allResults.map(item => {
+      const ag = item.assetGroup || {};
+      const camp = item.campaign || {};
+      return {
+        assetGroupId: ag.id,
+        assetGroupName: ag.name,
+        assetGroupResourceName: ag.resourceName || `customers/${customerId}/assetGroups/${ag.id}`,
+        campaignId: camp.id,
+        campaignName: camp.name,
+        campaignResourceName: camp.resourceName || `customers/${customerId}/campaigns/${camp.id}`,
+        finalUrls: ag.finalUrls || [],
+        headlines: [],
+        longHeadlines: [],
+        descriptions: []
+      };
+    });
+  } catch (error) {
+    const errorDetails = error.response ? JSON.stringify(error.response.data) : error.message;
+    throw new Error(`Google Ads searchStream PMax error: ${errorDetails}`);
+  }
+}
+
+/**
+ * Creates a new Performance Max Asset Group in Google Ads as PAUSED using googleAds:mutate.
+ * Executes two requests:
+ * 1) Mutate call to create text assets (15 headlines, 4 long headlines, 4 descriptions).
+ * 2) Mutate call to create the PAUSED Asset Group and link text assets + images.
+ * @param {object} config - Configuration object
+ * @param {string} accessToken - Current OAuth2 access token
+ * @param {string} campaignResourceName - Target PMax Campaign Resource Name (customers/{id}/campaigns/{id})
+ * @param {string} finalUrl - Target Final URL
+ * @param {Array<string>} headlines - 15 Headlines (max 30 chars)
+ * @param {Array<string>} longHeadlines - 4 Long Headlines (max 90 chars)
+ * @param {Array<string>} descriptions - 4 Descriptions (max 90 chars)
+ * @param {Array<object>} sourceImageResourceNames - Optional existing image resource names to map
+ * @param {string} [customGroupName] - Optional name for the new Asset Group
+ * @returns {Promise<object>} Response data from Google Ads API
+ */
+export async function createPMaxAssetGroup(config, accessToken, campaignResourceName, finalUrl, headlines, longHeadlines, descriptions, sourceImageResourceNames = [], customGroupName = null) {
+  const customerId = config.customerId.replace(/-/g, '');
+  const url = `https://googleads.googleapis.com/${config.googleAdsVersion}/customers/${customerId}/googleAds:mutate`;
+
+  // Step 1: Create all text assets in ONE request
+  const textAssetOperations = [
+    ...headlines.map(text => ({ assetOperation: { create: { textAsset: { text } } } })),
+    ...longHeadlines.map(text => ({ assetOperation: { create: { textAsset: { text } } } })),
+    ...descriptions.map(text => ({ assetOperation: { create: { textAsset: { text } } } }))
+  ];
+
+  const step1Payload = {
+    mutateOperations: textAssetOperations
+  };
+
+  let step1Response;
+  try {
+    const res = await axios.post(url, step1Payload, {
+      headers: getHeaders(config, accessToken)
+    });
+    step1Response = res.data;
+  } catch (error) {
+    const errorDetails = error.response ? JSON.stringify(error.response.data) : error.message;
+    throw new Error(`Google Ads PMax text asset creation mutate error: ${errorDetails}`);
+  }
+
+  // Extract created asset resource names
+  const responses = step1Response.mutateOperationResponses || [];
+  const assetResourceNames = responses.map(r => r.assetResult?.resourceName).filter(Boolean);
+
+  const headlineResNames = assetResourceNames.slice(0, headlines.length);
+  const longHeadlineResNames = assetResourceNames.slice(headlines.length, headlines.length + longHeadlines.length);
+  const descriptionResNames = assetResourceNames.slice(headlines.length + longHeadlines.length);
+
+  const nowStr = new Date().toISOString().replace(/[-:T.]/g, '').slice(0, 14);
+  const groupName = customGroupName || `AI PMax Asset Group ${nowStr}`;
+  const tempAssetGroupResourceName = `customers/${customerId}/assetGroups/-999`;
+
+  // Step 2: Create Asset Group & link all assets
+  const step2Operations = [
+    {
+      assetGroupOperation: {
+        create: {
+          resourceName: tempAssetGroupResourceName,
+          campaign: campaignResourceName,
+          name: groupName,
+          finalUrls: [finalUrl],
+          status: 'PAUSED'
+        }
+      }
+    },
+    ...headlineResNames.map(resName => ({
+      assetGroupAssetOperation: {
+        create: {
+          assetGroup: tempAssetGroupResourceName,
+          asset: resName,
+          fieldType: 'HEADLINE'
+        }
+      }
+    })),
+    ...longHeadlineResNames.map(resName => ({
+      assetGroupAssetOperation: {
+        create: {
+          assetGroup: tempAssetGroupResourceName,
+          asset: resName,
+          fieldType: 'LONG_HEADLINE'
+        }
+      }
+    })),
+    ...descriptionResNames.map(resName => ({
+      assetGroupAssetOperation: {
+        create: {
+          assetGroup: tempAssetGroupResourceName,
+          asset: resName,
+          fieldType: 'DESCRIPTION'
+        }
+      }
+    })),
+    ...sourceImageResourceNames.map(img => ({
+      assetGroupAssetOperation: {
+        create: {
+          assetGroup: tempAssetGroupResourceName,
+          asset: typeof img === 'string' ? img : img.resourceName,
+          fieldType: (typeof img === 'object' && img.fieldType) ? img.fieldType : 'MARKETING_IMAGE'
+        }
+      }
+    }))
+  ];
+
+  const step2Payload = {
+    mutateOperations: step2Operations
+  };
+
+  try {
+    const res = await axios.post(url, step2Payload, {
+      headers: getHeaders(config, accessToken)
+    });
+    return {
+      groupName,
+      createdAssetsCount: assetResourceNames.length,
+      apiResponse: res.data
+    };
+  } catch (error) {
+    const errorDetails = error.response ? JSON.stringify(error.response.data) : error.message;
+    throw new Error(`Google Ads PMax asset group creation mutate error: ${errorDetails}`);
+  }
+}
+
+

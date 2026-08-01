@@ -105,4 +105,105 @@ export default class OrchestratorAgent extends BaseAgent {
     this.log(`Workflow complete. Processed ${activeAds.length} ads. Successful: ${results.filter(r => !r.error).length}`);
     return results;
   }
+
+  /**
+   * Executes the full autonomous workflow to generate Performance Max (PMax) Asset Group alternatives.
+   * @param {object} config - App config
+   * @param {string} accessToken - OAuth2 access token
+   * @param {string} [frameworkName] - Optional copywriting framework name
+   * @returns {Promise<Array>} Results of processing active PMax Asset Groups
+   */
+  async runPMaxPipeline(config, accessToken, frameworkName = null) {
+    this.log('==================================================');
+    this.log('Starting PMax Asset Group Alternative Pipeline Execution...');
+    if (frameworkName) {
+      this.log(`Selected Copywriting Framework: ${frameworkName}`);
+    } else {
+      this.log('Using default framework: Angles (Pain Point + Solution Frame)');
+    }
+    this.log('==================================================');
+
+    const { fetchActivePMaxAssetGroups } = await import('../googleAds.js');
+    const CopywriterAgent = (await import('./CopywriterAgent.js')).default;
+    const ReviewAgent = (await import('./ReviewAgent.js')).default;
+    const UploadAgent = (await import('./UploadAgent.js')).default;
+
+    const copywriterAgent = new CopywriterAgent();
+    const reviewAgent = new ReviewAgent();
+    const uploadAgent = new UploadAgent();
+
+    this.log('Fetching active Performance Max Asset Groups via Google Ads API...');
+    let activeGroups = [];
+    try {
+      activeGroups = await fetchActivePMaxAssetGroups(config, accessToken);
+      this.log(`Found ${activeGroups.length} active Performance Max Asset Group(s).`);
+    } catch (err) {
+      this.log(`Error fetching active PMax Asset Groups: ${err.message}`);
+      throw err;
+    }
+
+    if (activeGroups.length === 0) {
+      this.log('No active Performance Max Asset Groups found to process.');
+      return [];
+    }
+
+    const results = [];
+
+    for (let idx = 0; idx < activeGroups.length; idx++) {
+      const pmaxGroup = activeGroups[idx];
+      this.log(`--------------------------------------------------`);
+      this.log(`Processing PMax Asset Group [${idx + 1}/${activeGroups.length}] (ID: ${pmaxGroup.assetGroupId}, Name: "${pmaxGroup.assetGroupName}")`);
+      this.log(`Campaign Resource Name: ${pmaxGroup.campaignResourceName}`);
+      this.log(`Final URL: ${pmaxGroup.finalUrls[0] || 'None'}`);
+
+      const finalUrl = pmaxGroup.finalUrls[0];
+      if (!finalUrl) {
+        this.log(`Skipping Asset Group ${pmaxGroup.assetGroupId}: Final URL is missing (required for scraping context).`);
+        continue;
+      }
+
+      try {
+        this.log(`Executing Copywriter Agent for PMax Asset Group alternative...`);
+        const copywritingDraft = await copywriterAgent.createPMaxAlternative(pmaxGroup, finalUrl, frameworkName);
+        
+        this.log(`Executing Review Agent for PMax Compliance (30/90/90 limits & policy)...`);
+        const complianceResult = await reviewAgent.reviewPMaxDraft(copywritingDraft, finalUrl, copywritingDraft.scrapedContext);
+        
+        this.log(`Executing Upload Agent to create PMax Asset Group as PAUSED...`);
+        const uploadResult = await uploadAgent.uploadPMaxAssetGroup(
+          config,
+          accessToken,
+          pmaxGroup.campaignResourceName,
+          finalUrl,
+          complianceResult,
+          pmaxGroup.imageResourceNames || [],
+          `AI PMax ${pmaxGroup.assetGroupName} (PAUSED)`
+        );
+        
+        this.log(`PMax Asset Group ID ${pmaxGroup.assetGroupId} successfully processed and new Asset Group created!`);
+        results.push({
+          originalAssetGroupId: pmaxGroup.assetGroupId,
+          campaignResourceName: pmaxGroup.campaignResourceName,
+          finalUrl,
+          angle: copywritingDraft.angle,
+          optimizedHeadlines: complianceResult.headlines,
+          optimizedLongHeadlines: complianceResult.longHeadlines,
+          optimizedDescriptions: complianceResult.descriptions,
+          uploadResult
+        });
+      } catch (err) {
+        this.log(`Failed to process PMax Asset Group ID ${pmaxGroup.assetGroupId}: ${err.message}`);
+        results.push({
+          originalAssetGroupId: pmaxGroup.assetGroupId,
+          campaignResourceName: pmaxGroup.campaignResourceName,
+          finalUrl,
+          error: err.message
+        });
+      }
+    }
+
+    this.log('--------------------------------------------------');
+    this.log(`PMax Workflow complete. Processed ${activeGroups.length} groups. Successful: ${results.filter(r => !r.error).length}`);
+    return results;
+  }
 }

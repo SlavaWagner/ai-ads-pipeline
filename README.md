@@ -83,7 +83,7 @@ npm link
 
 Run any of the following commands:
 
-* **Start the Workflow**: Coordinates all 4 agents to fetch, write, sanitize, and upload paused alternatives.
+* **Start the RSA Workflow**: Coordinates all 4 agents to fetch, write, sanitize, and upload paused RSA alternatives.
   ```bash
   ai-ads-pipeline run-workflow
   ```
@@ -91,7 +91,16 @@ Run any of the following commands:
   ```bash
   ai-ads-pipeline run-workflow --framework business
   ```
-  Available frameworks: `angles`, `audiences`, `business`, `copywritings`, `sophistication`.
+  Available frameworks: `angles` (default), `audiences`, `business`, `copywritings`, `sophistication`.
+
+* **Start the PMax Asset Group Workflow**: Creates new Performance Max (PMax) Asset Groups with 15 headlines (max 30 chars), 4 long headlines (max 90 chars), and 4 descriptions (max 90 chars) in `PAUSED` status:
+  ```bash
+  ai-ads-pipeline run-pmax
+  ```
+  Optionally specify a framework (defaults to `angles`):
+  ```bash
+  ai-ads-pipeline run-pmax --framework copywritings
+  ```
 
 * **Framework Chooser**: Select a framework for asset creation interactively, or pass the framework name directly. The selected framework becomes the default for future runs:
   ```bash
