@@ -1,0 +1,685 @@
+{
+    "timestamp": "2026-08-01 17:38:36",
+    "campaign": "DE_Search_AI-Preproduction_2026",
+    "ad_group": "AG_AI-Preproduction_RealEstate_LeadGen",
+    "total_preproduced_ads": 400,
+    "grade_counts": {
+        "A": 230,
+        "B": 170,
+        "C": 0,
+        "D": 0
+    },
+    "top_winner": {
+        "id": "PREPROD-AD-0001",
+        "grade": "B",
+        "score": 6.68,
+        "story_spin": "Vermögensarchitektur",
+        "headlines": [
+            "Asset-Festung Asset",
+            "Exklusive PAS Strategie",
+            "Starke Betonsubstanz 2026",
+            "Dein Rendite-Teleskop",
+            "Hebelwirkung im Markt",
+            "Smarter KI-Vorsprung",
+            "Sicherheit ohne Kompromiss",
+            "Antizyklische Dominanz",
+            "Keine spekulativen Risiken",
+            "Nachhaltiger Substanzwert",
+            "Autonome Architektur",
+            "Ausgewählter Off-Market Deal",
+            "Maximum an Ertragskraft",
+            "Transparente Datenfakten",
+            "Direkter Marktzugang 2026"
+        ],
+        "descriptions": [
+            "Stahlharter Schutzpanzer für dein Vermögen.",
+            "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+            "Setze auf bewährte Frameworks wie PAS für nachhaltigen Vermögensaufbau.",
+            "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+        ],
+        "swarm_20_agents_evaluations": [
+            {
+                "persona_id": "SWARM-01",
+                "persona_name": "Early Tech Adopter (m/28)",
+                "focus": "Effizienz & KI-Innovation",
+                "score": 5.8,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Effizienz & KI-Innovation direkt an.",
+                "projected_ctr_percent": 6.82,
+                "projected_cpc_euro": 2.63,
+                "projected_cpm_euro": 38.5,
+                "projected_cpl_euro": 67.2
+            },
+            {
+                "persona_id": "SWARM-02",
+                "persona_name": "Skeptischer Bedenkenträger (m/54)",
+                "focus": "Transparenz & Garantie",
+                "score": 6.5,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Transparenz & Garantie direkt an.",
+                "projected_ctr_percent": 7.1,
+                "projected_cpc_euro": 2.52,
+                "projected_cpm_euro": 36.75,
+                "projected_cpl_euro": 63.0
+            },
+            {
+                "persona_id": "SWARM-03",
+                "persona_name": "Erstkäufer & Junge Familie (f/32)",
+                "focus": "Planungssicherheit",
+                "score": 7.2,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Planungssicherheit direkt an.",
+                "projected_ctr_percent": 7.38,
+                "projected_cpc_euro": 2.42,
+                "projected_cpm_euro": 35.0,
+                "projected_cpl_euro": 58.8
+            },
+            {
+                "persona_id": "SWARM-04",
+                "persona_name": "Klassischer Kapitalanleger (m/48)",
+                "focus": "Mietrendite & Cashflow",
+                "score": 6.0,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Mietrendite & Cashflow direkt an.",
+                "projected_ctr_percent": 6.9,
+                "projected_cpc_euro": 2.6,
+                "projected_cpm_euro": 38.0,
+                "projected_cpl_euro": 66.0
+            },
+            {
+                "persona_id": "SWARM-05",
+                "persona_name": "Vorsichtige Bausparerin (f/42)",
+                "focus": "Grundsolide Absicherung",
+                "score": 6.7,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Grundsolide Absicherung direkt an.",
+                "projected_ctr_percent": 7.18,
+                "projected_cpc_euro": 2.5,
+                "projected_cpm_euro": 36.25,
+                "projected_cpl_euro": 61.8
+            },
+            {
+                "persona_id": "SWARM-06",
+                "persona_name": "Immobilien-Erbe (m/39)",
+                "focus": "Wert-Erhalt & Abwicklung",
+                "score": 7.4,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Wert-Erhalt & Abwicklung direkt an.",
+                "projected_ctr_percent": 7.46,
+                "projected_cpc_euro": 2.39,
+                "projected_cpm_euro": 34.5,
+                "projected_cpl_euro": 57.6
+            },
+            {
+                "persona_id": "SWARM-07",
+                "persona_name": "Vermögensvererber (m/67)",
+                "focus": "Nachlassplanung",
+                "score": 6.2,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Nachlassplanung direkt an.",
+                "projected_ctr_percent": 6.98,
+                "projected_cpc_euro": 2.57,
+                "projected_cpm_euro": 37.5,
+                "projected_cpl_euro": 64.8
+            },
+            {
+                "persona_id": "SWARM-08",
+                "persona_name": "Urban Career Professional (f/35)",
+                "focus": "Zeitgewinn & Premium-Service",
+                "score": 6.9,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Zeitgewinn & Premium-Service direkt an.",
+                "projected_ctr_percent": 7.26,
+                "projected_cpc_euro": 2.46,
+                "projected_cpm_euro": 35.75,
+                "projected_cpl_euro": 60.6
+            },
+            {
+                "persona_id": "SWARM-09",
+                "persona_name": "Konservativer Vermögensschützer (m/61)",
+                "focus": "Betongold & Kaufkraft-Erhalt",
+                "score": 7.6,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Betongold & Kaufkraft-Erhalt direkt an.",
+                "projected_ctr_percent": 7.54,
+                "projected_cpc_euro": 2.36,
+                "projected_cpm_euro": 34.0,
+                "projected_cpl_euro": 56.4
+            },
+            {
+                "persona_id": "SWARM-10",
+                "persona_name": "ESG & Sustainability Fan (f/31)",
+                "focus": "Energieeffizienz & ESG",
+                "score": 6.4,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Energieeffizienz & ESG direkt an.",
+                "projected_ctr_percent": 7.06,
+                "projected_cpc_euro": 2.54,
+                "projected_cpm_euro": 37.0,
+                "projected_cpl_euro": 63.6
+            },
+            {
+                "persona_id": "SWARM-11",
+                "persona_name": "Schnäppchen- & Value-Jäger (m/44)",
+                "focus": "Unterbewertete Deals",
+                "score": 7.1,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Unterbewertete Deals direkt an.",
+                "projected_ctr_percent": 7.34,
+                "projected_cpc_euro": 2.44,
+                "projected_cpm_euro": 35.25,
+                "projected_cpl_euro": 59.4
+            },
+            {
+                "persona_id": "SWARM-12",
+                "persona_name": "Gewerbe- & Portfoliokäufer (m/52)",
+                "focus": "Skalierung & B2B",
+                "score": 5.9,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Skalierung & B2B direkt an.",
+                "projected_ctr_percent": 6.86,
+                "projected_cpc_euro": 2.61,
+                "projected_cpm_euro": 38.25,
+                "projected_cpl_euro": 66.6
+            },
+            {
+                "persona_id": "SWARM-13",
+                "persona_name": "Suburban Relocator (f/37)",
+                "focus": "Platz & Lebensqualität",
+                "score": 6.6,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Platz & Lebensqualität direkt an.",
+                "projected_ctr_percent": 7.14,
+                "projected_cpc_euro": 2.51,
+                "projected_cpm_euro": 36.5,
+                "projected_cpl_euro": 62.4
+            },
+            {
+                "persona_id": "SWARM-14",
+                "persona_name": "Downsizer / Best-Ager (f/64)",
+                "focus": "Komfort & Barrierefreiheit",
+                "score": 7.3,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Komfort & Barrierefreiheit direkt an.",
+                "projected_ctr_percent": 7.42,
+                "projected_cpc_euro": 2.41,
+                "projected_cpm_euro": 34.75,
+                "projected_cpl_euro": 58.2
+            },
+            {
+                "persona_id": "SWARM-15",
+                "persona_name": "Tech Entrepreneur (m/33)",
+                "focus": "Leverage & Autonomie",
+                "score": 6.1,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Leverage & Autonomie direkt an.",
+                "projected_ctr_percent": 6.94,
+                "projected_cpc_euro": 2.58,
+                "projected_cpm_euro": 37.75,
+                "projected_cpl_euro": 65.4
+            },
+            {
+                "persona_id": "SWARM-16",
+                "persona_name": "Mehrgenerationen-Planerin (f/45)",
+                "focus": "Zusammenhalt & Flexibilität",
+                "score": 6.8,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Zusammenhalt & Flexibilität direkt an.",
+                "projected_ctr_percent": 7.22,
+                "projected_cpc_euro": 2.48,
+                "projected_cpm_euro": 36.0,
+                "projected_cpl_euro": 61.2
+            },
+            {
+                "persona_id": "SWARM-17",
+                "persona_name": "Passives-Einkommen-Seeker (m/36)",
+                "focus": "Hands-off Ertrag",
+                "score": 7.5,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Hands-off Ertrag direkt an.",
+                "projected_ctr_percent": 7.5,
+                "projected_cpc_euro": 2.38,
+                "projected_cpm_euro": 34.25,
+                "projected_cpl_euro": 57.0
+            },
+            {
+                "persona_id": "SWARM-18",
+                "persona_name": "Luxus- & Prestige-Käufer (m/46)",
+                "focus": "Exklusivität & Status",
+                "score": 6.3,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Exklusivität & Status direkt an.",
+                "projected_ctr_percent": 7.02,
+                "projected_cpc_euro": 2.55,
+                "projected_cpm_euro": 37.25,
+                "projected_cpl_euro": 64.2
+            },
+            {
+                "persona_id": "SWARM-19",
+                "persona_name": "Value-Add Renovator (m/41)",
+                "focus": "Aufwertungspotenzial",
+                "score": 7.0,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Aufwertungspotenzial direkt an.",
+                "projected_ctr_percent": 7.3,
+                "projected_cpc_euro": 2.45,
+                "projected_cpm_euro": 35.5,
+                "projected_cpl_euro": 60.0
+            },
+            {
+                "persona_id": "SWARM-20",
+                "persona_name": "Institutioneller Anleger (f/58)",
+                "focus": "Governance & Stabilität",
+                "score": 5.8,
+                "statement": "Der Story-Spin 'Vermögensarchitektur' spricht mich als Governance & Stabilität direkt an.",
+                "projected_ctr_percent": 6.82,
+                "projected_cpc_euro": 2.63,
+                "projected_cpm_euro": 38.5,
+                "projected_cpl_euro": 67.2
+            }
+        ]
+    },
+    "sample_preproduced_ads": [
+        {
+            "id": "PREPROD-AD-0001",
+            "story_spin": "Vermögensarchitektur",
+            "metaphor": "Stahlharter Schutzpanzer für dein Vermögen.",
+            "framework": "PAS",
+            "headlines": [
+                "Asset-Festung Asset",
+                "Exklusive PAS Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Stahlharter Schutzpanzer für dein Vermögen.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie PAS für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "PAS",
+                "d2_angle": "Asset-Festung",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 1,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 6.68,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0002",
+            "story_spin": "Hebel-Strategie",
+            "metaphor": "Minimaler Aufwand, maximale Hebelwirkung.",
+            "framework": "AIDA",
+            "headlines": [
+                "Asymmetrischer Hebel Asset",
+                "Exklusive AIDA Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Minimaler Aufwand, maximale Hebelwirkung.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie AIDA für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "AIDA",
+                "d2_angle": "Asymmetrischer Hebel",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 2,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 6.77,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0003",
+            "story_spin": "Weitsicht & Insider",
+            "metaphor": "Versteckte Potenziale erkennen.",
+            "framework": "FAB",
+            "headlines": [
+                "Rendite-Teleskop Asset",
+                "Exklusive FAB Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Versteckte Potenziale erkennen.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie FAB für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "FAB",
+                "d2_angle": "Rendite-Teleskop",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 3,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 6.88,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0004",
+            "story_spin": "Antizyklische Dominanz",
+            "metaphor": "Echtes Wachstum antizyklisch nutzen.",
+            "framework": "MVP Pivot",
+            "headlines": [
+                "Paradoxer Anker Asset",
+                "Exklusive MVP Pivot Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Echtes Wachstum antizyklisch nutzen.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie MVP Pivot für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "MVP Pivot",
+                "d2_angle": "Paradoxer Anker",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 1,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 6.97,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0005",
+            "story_spin": "Autonome Wertschöpfung",
+            "metaphor": "Autonome KI-Infrastruktur im Hintergrund.",
+            "framework": "Big Five",
+            "headlines": [
+                "Lautloser Beschleuniger Asset",
+                "Exklusive Big Five Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Autonome KI-Infrastruktur im Hintergrund.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie Big Five für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "Big Five",
+                "d2_angle": "Lautloser Beschleuniger",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 2,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 7.08,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0006",
+            "story_spin": "Vermögensarchitektur",
+            "metaphor": "Stahlharter Schutzpanzer für dein Vermögen.",
+            "framework": "DISG",
+            "headlines": [
+                "Asset-Festung Asset",
+                "Exklusive DISG Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Stahlharter Schutzpanzer für dein Vermögen.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie DISG für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "DISG",
+                "d2_angle": "Asset-Festung",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 3,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 7.16,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0007",
+            "story_spin": "Hebel-Strategie",
+            "metaphor": "Minimaler Aufwand, maximale Hebelwirkung.",
+            "framework": "PAS",
+            "headlines": [
+                "Asymmetrischer Hebel Asset",
+                "Exklusive PAS Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Minimaler Aufwand, maximale Hebelwirkung.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie PAS für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "PAS",
+                "d2_angle": "Asymmetrischer Hebel",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 1,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 7.19,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0008",
+            "story_spin": "Weitsicht & Insider",
+            "metaphor": "Versteckte Potenziale erkennen.",
+            "framework": "AIDA",
+            "headlines": [
+                "Rendite-Teleskop Asset",
+                "Exklusive AIDA Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Versteckte Potenziale erkennen.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie AIDA für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "AIDA",
+                "d2_angle": "Rendite-Teleskop",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 2,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 7.29,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0009",
+            "story_spin": "Antizyklische Dominanz",
+            "metaphor": "Echtes Wachstum antizyklisch nutzen.",
+            "framework": "FAB",
+            "headlines": [
+                "Paradoxer Anker Asset",
+                "Exklusive FAB Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Echtes Wachstum antizyklisch nutzen.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie FAB für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "FAB",
+                "d2_angle": "Paradoxer Anker",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 3,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 7.39,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        },
+        {
+            "id": "PREPROD-AD-0010",
+            "story_spin": "Autonome Wertschöpfung",
+            "metaphor": "Autonome KI-Infrastruktur im Hintergrund.",
+            "framework": "MVP Pivot",
+            "headlines": [
+                "Lautloser Beschleuniger Asset",
+                "Exklusive MVP Pivot Strategie",
+                "Starke Betonsubstanz 2026",
+                "Dein Rendite-Teleskop",
+                "Hebelwirkung im Markt",
+                "Smarter KI-Vorsprung",
+                "Sicherheit ohne Kompromiss",
+                "Antizyklische Dominanz",
+                "Keine spekulativen Risiken",
+                "Nachhaltiger Substanzwert",
+                "Autonome Architektur",
+                "Ausgewählter Off-Market Deal",
+                "Maximum an Ertragskraft",
+                "Transparente Datenfakten",
+                "Direkter Marktzugang 2026"
+            ],
+            "descriptions": [
+                "Autonome KI-Infrastruktur im Hintergrund.",
+                "Entdecke exklusive Strategien mit fundierter Datenanalyse und geprüfter Substanz.",
+                "Setze auf bewährte Frameworks wie MVP Pivot für nachhaltigen Vermögensaufbau.",
+                "Fordere jetzt dein individuelles Dossier an und sichere deinen Marktvorsprung."
+            ],
+            "vectorization": {
+                "d1_framework": "MVP Pivot",
+                "d2_angle": "Lautloser Beschleuniger",
+                "d3_lifecycle_stage": "Lead",
+                "d4_market_sophistication": 1,
+                "d5_hook_type": "Uniqueness",
+                "d6_sentiment": 0.6
+            },
+            "matrix_evaluation": {
+                "weighted_score": 7.49,
+                "grade": "B",
+                "action": "Testwürdig (Mehr Varianten erzeugen)"
+            }
+        }
+    ]
+}

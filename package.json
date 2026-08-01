@@ -2,7 +2,6 @@
   "name": "ai-ads-pipeline-cli",
   "version": "1.0.0",
   "description": "Persistent AI Agents for Google Ads Optimization",
-  "license": "MIT",
   "main": "bin/index.js",
   "type": "module",
   "bin": {
@@ -23,3 +22,4 @@
     "dotenv": "^16.4.5"
   }
 }
+

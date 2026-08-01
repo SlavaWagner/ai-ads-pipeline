@@ -24,13 +24,19 @@ async function runTests() {
   try {
     console.log(chalk.yellow('Test 1: Agent Loader and Config Storage...'));
     const agents = listAgents();
-    assert(agents.length === 6, `Expected 6 default agents, found ${agents.length}`);
+    assert(agents.length >= 6, `Expected at least 6 default agents, found ${agents.length}`);
     
     const reviewer = getAgent('reviewer');
     assert(reviewer !== null, 'Should be able to load reviewer agent config');
     assert(reviewer.name === 'reviewer', `Expected agent name "reviewer", got "${reviewer?.name}"`);
     assert(reviewer.skills.includes('LLMGenerateSkill'), 'Reviewer should have LLMGenerateSkill');
     assert(!reviewer.skills.includes('LandingPageScrapeSkill'), 'Reviewer should NOT have LandingPageScrapeSkill (security check)');
+
+    const preproduction = getAgent('preproduction');
+    assert(preproduction !== null, 'Should be able to load preproduction agent config');
+
+    const agentSwarm = getAgent('agent_swarm');
+    assert(agentSwarm !== null, 'Should be able to load agent_swarm config');
 
     const keywordPlanner = getAgent('keywordPlanner');
     assert(keywordPlanner !== null, 'Should be able to load keyword planner agent config');

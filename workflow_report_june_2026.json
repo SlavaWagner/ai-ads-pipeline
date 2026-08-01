@@ -1,0 +1,13 @@
+{
+    "APIConnections":  [
+                           "Google Ads",
+                           "Meta Graph",
+                           "Analytics G4"
+                       ],
+    "RecommendationsCount":  3,
+    "Timestamp":  "2026-06-07 18:26:35",
+    "PredictedConversions":  420,
+    "PredictedCTR":  "8.1%",
+    "TargetDomain":  "slavawagner.de",
+    "Status":  "Success"
+}

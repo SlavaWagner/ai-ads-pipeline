@@ -102,6 +102,20 @@ Run any of the following commands:
   ai-ads-pipeline run-pmax --framework copywritings
   ```
 
+* **Mass AI Ad Pre-production & 20-Agent Swarm Testing**: Pre-produces up to 400 cardinal AI ad alternatives in advance (before upload to Google Ads), performs 6-dimensional asset vectorization and AI Asset Decision Matrix scoring (Grades A/B/C/D), and deploys a 20-Agent Persona Swarm to test top candidates and project CTR, CPC, CPM, and CPL metrics:
+  ```bash
+  ai-ads-pipeline preproduce
+  ```
+  Options:
+  - `-t, --track <rsa|pmax>`: Campaign track (default `rsa`)
+  - `-c, --count <number>`: Number of AI ad alternatives to pre-produce (default `400`)
+  - `-u, --url <url>`: Target landing page URL for context scraping
+
+* **Standalone 20-Agent Swarm Testing**: Run predictive asset testing directly across 20 test customer personas (sub-audiences) to get qualitative persona feedback and CTR/CPC/CPM/CPL projections:
+  ```bash
+  ai-ads-pipeline swarm-test --track rsa
+  ```
+
 * **Framework Chooser**: Select a framework for asset creation interactively, or pass the framework name directly. The selected framework becomes the default for future runs:
   ```bash
   ai-ads-pipeline framework

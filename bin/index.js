@@ -19,6 +19,8 @@ import ReviewAgent from '../src/agents/ReviewAgent.js';
 import UploadAgent from '../src/agents/UploadAgent.js';
 import KeywordPlannerAgent from '../src/agents/KeywordPlannerAgent.js';
 import StrategyAdvisorAgent from '../src/agents/StrategyAdvisorAgent.js';
+import PreproductionAgent from '../src/agents/PreproductionAgent.js';
+import AgentSwarm from '../src/agents/AgentSwarm.js';
 
 // Initialize storage folders and default agent configurations
 initStorage();
@@ -404,6 +406,110 @@ program
 
     } catch (error) {
       console.error(chalk.bold.red('\n✖ PMax Pipeline aborted:'), error.message);
+    }
+  });
+
+// PREPRODUCE Command (Mass Pre-production of 400 AI Ad Alternatives + Decision Matrix + 20-Agent Swarm Testing)
+program
+  .command('preproduce')
+  .description('Mass pre-produce 400 AI ad alternatives with Decision Matrix Scoring & 20-Agent Swarm Predictive Asset Testing')
+  .option('-t, --track <type>', 'Campaign track (rsa or pmax)', 'rsa')
+  .option('-c, --count <number>', 'Number of AI ad alternatives to generate', '400')
+  .option('-u, --url <url>', 'Target landing page URL context', 'https://www.slavawagner.de')
+  .option('--no-swarm', 'Skip 20-Agent Swarm Predictive Asset Testing')
+  .action(async (options) => {
+    console.log(chalk.bold.cyan('\n=== Mass AI Ad Pre-production & 20-Agent Swarm Testing Pipeline ===\n'));
+
+    const count = parseInt(options.count, 10) || 400;
+    const track = options.track.toUpperCase() === 'PMAX' ? 'PMAX' : 'RSA';
+    const finalUrl = options.url || 'https://www.slavawagner.de';
+    const runSwarm = options.swarm !== false;
+
+    console.log(`Track:                  ${chalk.bold.green(track)}`);
+    console.log(`Target Quantity:        ${chalk.bold.green(count)} AI Ad Alternatives`);
+    console.log(`Landing Page URL:       ${chalk.bold.cyan(finalUrl)}`);
+    console.log(`20-Agent Swarm Testing: ${runSwarm ? chalk.green('ENABLED') : chalk.gray('DISABLED')}\n`);
+
+    try {
+      const agent = new PreproductionAgent();
+      const report = await agent.preproduceAdAlternatives({
+        finalUrl,
+        track,
+        count,
+        runSwarmTest: runSwarm
+      });
+
+      console.log(chalk.bold.green('\n=== DECISION MATRIX SCORING SUMMARY ==='));
+      console.log(`Grade A (PMF-Kandidaten / Skalieren):   ${chalk.bold.green(report.gradeCounts.A)}`);
+      console.log(`Grade B (Testwürdig / Mehr Varianten):  ${chalk.bold.cyan(report.gradeCounts.B)}`);
+      console.log(`Grade C (Grenzwertig / Low-Budget):     ${chalk.yellow(report.gradeCounts.C)}`);
+      console.log(`Grade D (Noise / Kill):                ${chalk.red(report.gradeCounts.D)}`);
+      console.log(`Top Candidate Ad ID:                    ${report.decisionMatrixSummary.topScoringAdId} (Score: ${report.decisionMatrixSummary.highestScore}/10)`);
+
+      if (report.swarmPredictiveReport) {
+        console.log(chalk.bold.magenta('\n=== 20-AGENT PERSONA SWARM STATEMENT & PREDICTIVE METRICS ==='));
+        const swarm = report.swarmPredictiveReport;
+        const winner = swarm.evaluatedCandidates[0];
+        if (winner) {
+          console.log(chalk.bold.green(`🏆 Winner Ad Alternative: ${winner.candidateId}`));
+          console.log(`   Matrix Grade & Score: Grade ${winner.matrixGrade} (${winner.matrixScore}/10)`);
+          console.log(`   Swarm Approval Rate:  ${winner.swarmSummary.approvalRatePercent}% (${winner.swarmSummary.approvedAgentsCount}/20 Agents Approved)`);
+          console.log(chalk.cyan(`   Proportionale Metriken-Prognose (Hochrechnung):`));
+          console.log(`     - Ø CTR:  ${winner.swarmSummary.projectedMetrics.ctrPercent}%`);
+          console.log(`     - Ø CPC:  €${winner.swarmSummary.projectedMetrics.cpcEuro}`);
+          console.log(`     - Ø CPM:  €${winner.swarmSummary.projectedMetrics.cpmEuro}`);
+          console.log(`     - Ø CPL:  €${winner.swarmSummary.projectedMetrics.costPerLeadEuro}`);
+
+          console.log(chalk.bold.yellow('\n--- Outtake: Top Agent Statements (Sub-Audiences) ---'));
+          winner.agentStatements.slice(0, 5).forEach(stmt => {
+            console.log(chalk.bold.white(`• [${stmt.personaId}] ${stmt.personaName} (Score: ${stmt.score}/10):`));
+            console.log(chalk.gray(`  ${stmt.statement}`));
+            console.log(chalk.gray(`  [CTR: ${stmt.projectedCTR}% | CPC: €${stmt.projectedCPC} | CPM: €${stmt.projectedCPM} | CPL: €${stmt.projectedCPL}]`));
+          });
+        }
+      }
+
+      // Save report persistently
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const projectRoot = path.resolve(__dirname, '..');
+      const timestampStr = new Date().toISOString().replace(/[:.]/g, '-');
+      const reportPath = path.resolve(projectRoot, `storage/runs/preproduction-report-${track.toLowerCase()}-${timestampStr}.json`);
+      
+      if (!fs.existsSync(path.dirname(reportPath))) {
+        fs.mkdirSync(path.dirname(reportPath), { recursive: true });
+      }
+
+      fs.writeFileSync(reportPath, JSON.stringify(report, null, 2), 'utf8');
+      console.log(chalk.bold.green(`\n✔ Pre-production Report & Asset Catalog saved persistently to:\n  ${reportPath}\n`));
+
+    } catch (error) {
+      console.error(chalk.bold.red('\n✖ Pre-production failed:'), error.message);
+    }
+  });
+
+// SWARM-TEST Command (Standalone 20-Agent Swarm Testing)
+program
+  .command('swarm-test')
+  .description('Run 20-Agent Swarm Predictive Asset Testing on AI ad alternatives')
+  .option('-t, --track <type>', 'Campaign track (rsa or pmax)', 'rsa')
+  .action(async (options) => {
+    console.log(chalk.bold.cyan('\n=== 20-Agent Swarm Predictive Asset Testing ===\n'));
+
+    const track = options.track.toUpperCase() === 'PMAX' ? 'PMAX' : 'RSA';
+
+    try {
+      const preprodAgent = new PreproductionAgent();
+      console.log(chalk.yellow('Generiere Test-Kandidaten mit Asset-Spine & Decision Matrix...'));
+      const report = await preprodAgent.preproduceAdAlternatives({
+        track,
+        count: 20,
+        runSwarmTest: true
+      });
+
+      console.log(chalk.bold.green('\n✔ 20-Agent Swarm Test erfolgreich abgeschlossen!\n'));
+    } catch (error) {
+      console.error(chalk.bold.red('\n✖ Swarm Test failed:'), error.message);
     }
   });
 

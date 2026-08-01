@@ -173,6 +173,22 @@ Guidelines:
 4. Answer in German, since the strategies are written in German and the user is evaluating slavawagner.de campaigns.`,
     skills: ['LLMGenerateSkill'],
     model: 'gemini-1.5-flash'
+  },
+  preproduction: {
+    name: 'preproduction',
+    role: 'Mass AI Ad Alternatives Pre-production Agent',
+    description: 'Generates up to 400 AI ad alternatives in advance with strict character limits, story-spine consistency, unconventional metaphors, and vectorization scoring.',
+    systemPrompt: 'You are the Mass Pre-production Agent. You produce 400 cardinal ad alternatives with deep variation before uploading to Google Ads.',
+    skills: ['LandingPageScrapeSkill', 'LLMGenerateSkill'],
+    model: 'gemini-1.5-flash'
+  },
+  agent_swarm: {
+    name: 'agent_swarm',
+    role: '20-Agent Persona Swarm (Predictive Asset Testing)',
+    description: 'Deploys 20 test customer persona agents to evaluate ad alternatives and project CTR, CPC, CPM, and CPL metrics.',
+    systemPrompt: 'You are the 20-Agent Persona Swarm Agent. You evaluate ad creatives from 20 distinct customer persona perspectives and estimate performance metrics.',
+    skills: ['LLMGenerateSkill'],
+    model: 'gemini-1.5-flash'
   }
 };
 
