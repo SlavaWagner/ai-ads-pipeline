@@ -54,7 +54,7 @@ export default class PreproductionAgent extends BaseAgent {
     } = options;
 
     this.log(`==================================================`);
-    this.log(`🏭 STARTING MASS AI AD PRE-PRODUCTION PIPELINE`);
+    this.log(`[START] MASS AI AD PRE-PRODUCTION PIPELINE`);
     this.log(`Target Count: ${count} AI Ad Alternatives | Track: ${track}`);
     this.log(`Landing Page / Context URL: ${finalUrl}`);
     this.log(`==================================================`);
@@ -140,7 +140,7 @@ export default class PreproductionAgent extends BaseAgent {
       adAlternatives.push(scoredAd);
     }
 
-    this.log(`✔ Generated & Vectorized ${adAlternatives.length} AI Ad Alternatives!`);
+    this.log(`[OK] Generated & Vectorized ${adAlternatives.length} AI Ad Alternatives!`);
 
     // Step 3: Categorize & Sort according to AI Asset Decision Matrix Grades
     const gradeA = adAlternatives.filter(a => a.matrixEvaluation.grade === 'A');
@@ -148,7 +148,7 @@ export default class PreproductionAgent extends BaseAgent {
     const gradeC = adAlternatives.filter(a => a.matrixEvaluation.grade === 'C');
     const gradeD = adAlternatives.filter(a => a.matrixEvaluation.grade === 'D');
 
-    this.log(`\n📊 AI ASSET DECISION MATRIX SCORING BREAKDOWN:`);
+    this.log(`\nAI ASSET DECISION MATRIX SCORING BREAKDOWN:`);
     this.log(`  Grade A (PMF-Kandidaten / Skalieren):   ${gradeA.length} Ads`);
     this.log(`  Grade B (Testwürdig / Varianten):        ${gradeB.length} Ads`);
     this.log(`  Grade C (Grenzwertig / Low-Budget):      ${gradeC.length} Ads`);
@@ -157,7 +157,7 @@ export default class PreproductionAgent extends BaseAgent {
     // Step 4: Run Agent Swarm Predictive Asset Testing if enabled
     let swarmReport = null;
     if (runSwarmTest) {
-      this.log(`\n🤖 Launching 20-Agent Swarm for Predictive Asset Testing...`);
+      this.log(`\n[LAUNCH] Starting 20-Agent Swarm for Predictive Asset Testing...`);
       // Take top Grade A candidates (or Grade B if A is small)
       const topCandidates = [...gradeA, ...gradeB].slice(0, 10);
       swarmReport = await this.agentSwarm.runPredictiveTesting(topCandidates, track, 'Immobilien & High-Price Lead Gen');

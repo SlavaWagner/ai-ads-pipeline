@@ -39,7 +39,7 @@ export default class AgentSwarm extends BaseAgent {
    * @returns {Promise<object>} Swarm evaluation report with statements & metric projections
    */
   async runPredictiveTesting(adCandidates, track = 'RSA', contextIndustry = 'Immobilien & Lead Gen') {
-    this.log(`🚀 Starting 20-Agent Swarm Predictive Asset Testing for ${adCandidates.length} top candidates...`);
+    this.log(`[START] Starting 20-Agent Swarm Predictive Asset Testing for ${adCandidates.length} top candidates...`);
     this.log(`Track: ${track} | Industry Context: ${contextIndustry}`);
 
     const config = getConfig();
@@ -103,7 +103,7 @@ export default class AgentSwarm extends BaseAgent {
     evaluatedCandidates.sort((a, b) => b.swarmSummary.approvalRatePercent - a.swarmSummary.approvalRatePercent);
 
     const winner = evaluatedCandidates[0];
-    this.log(`\n🏆 WINNER AD ALTERNATIVE DETERMINED BY SWARM:`);
+    this.log(`\n[WINNER] AD ALTERNATIVE DETERMINED BY SWARM:`);
     if (winner) {
       this.log(`  ID: ${winner.candidateId} (Grade: ${winner.matrixGrade}, Matrix Score: ${winner.matrixScore})`);
       this.log(`  Swarm Approval: ${winner.swarmSummary.approvalRatePercent}%`);
