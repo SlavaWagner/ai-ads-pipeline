@@ -160,6 +160,21 @@ program
       console.log(`Grade D (Noise / Kill):                ${chalk.red(report.gradeCounts.D)}`);
       console.log(`Top Candidate Ad ID:                    ${report.decisionMatrixSummary.topScoringAdId} (Score: ${report.decisionMatrixSummary.highestScore}/10)`);
 
+      if (report.etsForecast) {
+        const ets = report.etsForecast;
+        const agg = ets.aggregatedForecast;
+        console.log(chalk.bold.blue('\n=== HOLT-WINTERS ETS TIME-SERIES 30-DAY FORECAST ==='));
+        console.log(`Forecast Model:          ${chalk.bold.cyan(ets.model)}`);
+        console.log(`Account Baseline Source: ${chalk.bold.yellow(ets.baselineSource)}`);
+        console.log(`Trend Velocity:          ${chalk.bold.green(ets.trendVelocityPercentPerWeek + '% / week')}`);
+        console.log(chalk.cyan(`Projected 30-Day Aggregates:`));
+        console.log(`  - 30-Day Projected Spend:       €${agg.totalProjectedSpendEuro}`);
+        console.log(`  - 30-Day Projected Conversions: ${agg.totalProjectedConversions} Leads`);
+        console.log(`  - Projected Ø CTR:              ${agg.avgProjectedCtrPercent}%`);
+        console.log(`  - Projected Ø CPC:              €${agg.avgProjectedCpcEuro}`);
+        console.log(`  - Projected Ø CPL:              €${agg.avgProjectedCplEuro}`);
+      }
+
       if (report.swarmPredictiveReport) {
         const swarm = report.swarmPredictiveReport;
         console.log(chalk.bold.magenta('\n=== 20-AGENT DYNAMIC PERSONA SWARM (ENGLISH) ==='));

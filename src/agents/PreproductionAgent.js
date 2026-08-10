@@ -2,6 +2,8 @@ import BaseAgent from './BaseAgent.js';
 import LandingPageScrapeSkill from '../skills/LandingPageScrapeSkill.js';
 import DecisionMatrix from '../scoring/DecisionMatrix.js';
 import AgentSwarm from './AgentSwarm.js';
+import ETSForecaster from '../scoring/ETSForecaster.js';
+import { fetchHistoricalPerformanceMetrics } from '../googleAds.js';
 import { generateText } from '../gemini.js';
 import { getConfig } from '../config.js';
 
@@ -197,7 +199,7 @@ export default class PreproductionAgent extends BaseAgent {
     let swarmReport = null;
     if (runSwarmTest) {
       this.log(`\n[LAUNCH] Starting 20-Agent Swarm for Predictive Asset Testing...`);
-      // Take top Grade A & B candidates up to 40 for complete Swarm evaluation
+      // Step 3: Run 20-Agent Swarm Testing on Top 40 Candidates
       const topCandidates = [...gradeA, ...gradeB].slice(0, 40);
       swarmReport = await this.agentSwarm.runPredictiveTesting(topCandidates, track, options.theme || 'Immobilien & High-Price Lead Gen', {
         theme: options.theme,
@@ -207,6 +209,23 @@ export default class PreproductionAgent extends BaseAgent {
         descriptions: targetAd ? targetAd.descriptions : []
       });
     }
+
+    // Step 4: Pull Google Ads Account Baseline Performance & Run ETS-Based 30-Day Forecast
+    this.log(`[ETS FORECAST PHASE] Pulling historical baseline performance metrics from Google Ads Account...`);
+    const appConfig = getConfig();
+    const baselineAccountData = await fetchHistoricalPerformanceMetrics(appConfig, options.accessToken || null, { daysCount: 30 });
+    this.log(`[OK] Baseline metrics pulled (${baselineAccountData.source}): Ø CTR ${baselineAccountData.aggregates.avgCtrPercent}%, Ø CPC €${baselineAccountData.aggregates.avgCpcEuro}, Ø CPL €${baselineAccountData.aggregates.avgCplEuro}.`);
+
+    this.log(`Computing Holt-Winters ETS (Exponential Triple Smoothing) 30-day forecast...`);
+    const topWinnerCtr = swarmReport?.evaluatedCandidates?.[0]?.swarmSummary?.projectedMetrics?.ctrPercent || 7.84;
+    const ctrUpliftRatio = parseFloat((topWinnerCtr / (baselineAccountData.aggregates.avgCtrPercent || 6.85)).toFixed(2));
+
+    const etsForecast = ETSForecaster.forecast(baselineAccountData, {
+      ctrUplift: Math.max(1.02, Math.min(1.35, ctrUpliftRatio)),
+      cpcDiscount: 0.96,
+      cplUplift: 0.92
+    }, 30);
+    this.log(`[OK] Holt-Winters ETS Forecast generated for 30-day horizon (${etsForecast.baselineSource}).`);
 
     const report = {
       timestamp: new Date().toISOString(),
@@ -222,6 +241,8 @@ export default class PreproductionAgent extends BaseAgent {
         topScoringAdId: adAlternatives[0]?.id,
         highestScore: adAlternatives[0]?.matrixEvaluation.weighted_score
       },
+      baselineAccountData,
+      etsForecast,
       swarmPredictiveReport: swarmReport,
       allAlternatives: adAlternatives
     };

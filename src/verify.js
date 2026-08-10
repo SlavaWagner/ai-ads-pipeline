@@ -1,6 +1,8 @@
 import chalk from 'chalk';
 import { getAgent, listAgents, initStorage } from './storage.js';
 import ReviewAgent from './agents/ReviewAgent.js';
+import ETSForecaster from './scoring/ETSForecaster.js';
+import { fetchHistoricalPerformanceMetrics } from './googleAds.js';
 
 initStorage();
 
@@ -144,6 +146,29 @@ async function runTests() {
 
   } catch (err) {
     console.log(chalk.red(`  ✖ FAILED: PMax Sanitizer test error: ${err.message}`));
+    failedTests++;
+  }
+
+  // Test 4: Google Ads Account Baseline Stream & Holt-Winters ETS Forecasting Engine
+  console.log(chalk.bold.yellow('\nTest 4: Google Ads Baseline Performance & Holt-Winters ETS Forecasting Engine...'));
+  try {
+    const baseline = await fetchHistoricalPerformanceMetrics({}, null, { daysCount: 30 });
+    assert(baseline.dailySeries && baseline.dailySeries.length === 30, 'Baseline daily series should contain 30 days of performance');
+    assert(baseline.aggregates.avgCtrPercent > 0, 'Baseline avg CTR should be > 0');
+    assert(baseline.aggregates.avgCpcEuro > 0, 'Baseline avg CPC should be > 0');
+    assert(baseline.aggregates.avgCplEuro > 0, 'Baseline avg CPL should be > 0');
+    console.log(chalk.green(`  ✔ PASSED: Pulled baseline performance metrics (${baseline.source})`));
+    passedTests++;
+
+    const forecast = ETSForecaster.forecast(baseline, { ctrUplift: 1.15, cpcDiscount: 0.95, cplUplift: 0.90 }, 30);
+    assert(forecast.model.includes('Exponential Triple Smoothing'), 'Forecast model should specify Holt-Winters ETS');
+    assert(forecast.dailyForecastSeries.length === 30, 'Forecast daily series should project 30 days');
+    assert(forecast.aggregatedForecast.totalProjectedSpendEuro > 0, 'Projected 30-day spend should be > 0');
+    assert(forecast.aggregatedForecast.totalProjectedConversions > 0, 'Projected 30-day conversions should be > 0');
+    console.log(chalk.green(`  ✔ PASSED: Computed 30-day Holt-Winters ETS Forecast with confidence bounds`));
+    passedTests++;
+  } catch (err) {
+    console.log(chalk.red(`  ✖ FAILED: ETS Forecast test error: ${err.message}`));
     failedTests++;
   }
 

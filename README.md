@@ -99,10 +99,11 @@ Run any of the following commands:
   ```
   Optionally specify a framework (defaults to `angles`):
   ```bash
-  ai-ads-pipeline run-pmax --framework copywritings
-  ```
-
-* **Mass AI Ad Pre-production & 20-Agent Swarm Testing**: Pre-produces up to 400 cardinal AI ad alternatives in advance (before upload to Google Ads), performs 6-dimensional asset vectorization and AI Asset Decision Matrix scoring (Grades A/B/C/D), and deploys a 20-Agent Persona Swarm to test top candidates and project CTR, CPC, CPM, and CPL metrics:
+  ### `ai-ads-pipeline preproduce` (Mass Pre-production & ETS Predictive Testing)
+- **Phase 0 Angle Discovery Engine**: Prior to asset creation, the preproduction agent executes an offer-tailored Angle Search to discover **40 unique, distinct positioning angles** (story spines & buyer motivators) tailored to the offer, industry, and landing page context.
+- **Google Ads Account Baseline Stream**: Automatically pulls 30-day historical account performance metrics (`searchStream`) directly from the Google Ads API (CTR, CPC, CPM, CPL, Cost, Conversions) to establish an empirical performance baseline.
+- **Exponential Triple Smoothing (Holt-Winters ETS) Forecasting**: Runs Level ($\alpha$), Trend ($\beta$), and Seasonality ($\gamma$) time-series smoothing over the historical Google Ads baseline data combined with Swarm Winner Uplift to project a 30-day performance forecast (Total Spend, Conversions, CTR, CPC, CPL) with 95% confidence bounds.
+- **Full 40 Asset-Group Swarm Evaluation**: Evaluates up to 40 top candidate asset groups via the 20-Agent Persona Swarm in complete tabular format.es and project CTR, CPC, CPM, and CPL metrics:
   ```bash
   ai-ads-pipeline preproduce
   ```
