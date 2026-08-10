@@ -2,53 +2,261 @@ import BaseAgent from './BaseAgent.js';
 import { generateText } from '../gemini.js';
 import { getConfig } from '../config.js';
 
-export const SWARM_PERSONAS = [
-  { id: 'SWARM-01', name: 'Early Tech Adopter (m/28)', role: 'Tech-affiner Innovationstreiber', focus: 'Effizienz, KI-Tools, Schnelligkeit & Innovation', mindset: 'Sucht stets nach dem neuesten Tech-Vorsprung. Hasst altmodische Phrasen.' },
-  { id: 'SWARM-02', name: 'Skeptischer Bedenkenträger (m/54)', role: 'Risikoaverser Prüfer', focus: 'Transparenz, Nachweise & Risiko-Minimierung', mindset: 'Hinterfragt jedes Versprechen. Will Garantien und exakte Fakten ohne Hype.' },
-  { id: 'SWARM-03', name: 'Erstkäufer & Junge Familie (f/32)', role: 'Eigenheim-Einsteiger', focus: 'Planungssicherheit, Wohlfühlfaktor & Budget', mindset: 'Sucht Sicherheit für die Familie. Reagiert stark auf Vertrauen und klare Zahlen.' },
-  { id: 'SWARM-04', name: 'Klassischer Kapitalanleger (m/48)', role: 'Rendite- & Cashflow-Fokussierter', focus: 'Mietrendite, AfA & Vermögensaufbau', mindset: 'Zahlen- und ROI-getrieben. Reagiert negativ auf leere Versprechungen.' },
-  { id: 'SWARM-05', name: 'Vorsichtige Bausparerin (f/42)', role: 'Sicherheitsorientierte Entscheiderin', focus: 'Grundsolide Absicherung & Schutz', mindset: 'Vermeidet Experimente. Will bekannte, vertrauenswürdige Frameworks.' },
-  { id: 'SWARM-06', name: 'Immobilien-Erbe (m/39)', role: 'Substanz-Bewahrer & Nachfolger', focus: 'Wert-Erhalt & mühelose Abwicklung', mindset: 'Sucht unkomplizierte, professionelle Lösungen für geerbtes Vermögen.' },
-  { id: 'SWARM-07', name: 'Vermögensvererber (m/67)', role: 'Senior mit Nachlassplanung', focus: 'Familienabsicherung & steuerfreie Übertragung', mindset: 'Denkt in Generationen. Will seriöse, würdevolle Ansprache.' },
-  { id: 'SWARM-08', name: 'Urban Career Professional (f/35)', role: 'Zeitknappe Führungskraft', focus: 'Zeitgewinn, Premium-Service & Abkürzungen', mindset: 'Hat viel Geld, aber wenig Zeit. Reagiert auf High-End Metaphern.' },
-  { id: 'SWARM-09', name: 'Konservativer Vermögensschützer (m/61)', role: 'Inflationsschutz-Sucher', focus: 'Betongold & Kaufkraft-Erhalt', mindset: 'Sucht Stabilität in Krisenzeiten. Abgeneigt gegenüber aggressiver Werbung.' },
-  { id: 'SWARM-10', name: 'ESG & Sustainability Fan (f/31)', role: 'Nachhaltigkeits-Enthusiastin', focus: 'Energieeffizienz, Zukunftsfähigkeit & ESG', mindset: 'Achtet auf ökologische Ausrichtung und zukunftssichere Bau- & Investitionsstandards.' },
-  { id: 'SWARM-11', name: 'Schnäppchen- & Value-Jäger (m/44)', role: 'Preis-Leistungs-Optimierer', focus: 'Unterbewertete Deals & Verhandlungsvorteil', mindset: 'Sucht stets den Hebel und den preislichen Vorteil.' },
-  { id: 'SWARM-12', name: 'Gewerbe- & Portfoliokäufer (m/52)', role: 'Multi-Unit Investor', focus: 'Skalierung, Diversifikation & Synergien', mindset: 'Denkt in Portfolios. Reagiert auf strukturierte B2B-Metriken.' },
-  { id: 'SWARM-13', name: 'Suburban Relocator (f/37)', role: 'Stadt-Flüchtling & Lebensqualität-Sucherin', focus: 'Platz, Natur & Lebensqualität', mindset: 'Will raus aus dem Großstadtstress, sucht Balance und Raum.' },
-  { id: 'SWARM-14', name: 'Downsizer / Best-Ager (f/64)', role: 'Komfort- & Barrierefrei-Orientierte', focus: 'Pflegeleichtes Wohnen & Komfort', mindset: 'Verkleinert Wohnraum für maximale Lebensfreude ohne Ballast.' },
-  { id: 'SWARM-15', name: 'Tech Entrepreneur (m/33)', role: 'Skalierungs-Gründer', focus: 'Leverage, Automation & Asymmetrische Chancen', mindset: 'Sucht Hebelwirkung. Versteht komplexe KI-Analysen sofort.' },
-  { id: 'SWARM-16', name: 'Mehrgenerationen-Planerin (f/45)', role: 'Familien-Koordinatorin', focus: 'Zusammenhalt, Großraum & Flexibilität', mindset: 'Wägt Bedürfnisse verschiedener Altersgruppen sorgfältig ab.' },
-  { id: 'SWARM-17', name: 'Passives-Einkommen-Seeker (m/36)', role: 'Hands-off Investor', focus: 'Automatisiertes Management & stressfreier Ertrag', mindset: 'Will null Aufwand bei maximaler administrativer Entlastung.' },
-  { id: 'SWARM-18', name: 'Luxus- & Prestige-Käufer (m/46)', role: 'High-End Status-Käufer', focus: 'Exklusivität, Architektur & Status', mindset: 'Sucht das Besondere, das nicht jeder hat.' },
-  { id: 'SWARM-19', name: 'Value-Add Renovator / Fixer (m/41)', role: 'Wertsteigerungs-Praktiker', focus: 'Aufwertungspotenzial & Eigenleistung', mindset: 'Sucht Rohdiamanten mit Entfaltungsmöglichkeit.' },
-  { id: 'SWARM-20', name: 'Institutioneller / Stiftungs-Anleger (f/58)', role: 'Regulierter Großanleger', focus: 'Governance, ESG & Stabilität', mindset: 'Strikte Anlagerichtlinien, konservatives Risikoprofil.' }
+// Default English Persona Archetypes for initial export / fallback
+export const DEFAULT_ENGLISH_PERSONAS = [
+  { id: 'SWARM-01', name: 'Early Tech Adopter (m/28)', role: 'Tech-Savvy Innovation Lead', focus: 'Efficiency, Automation, Modern Stack & Innovation', mindset: 'Constantly seeks technological edge. Critical of outdated marketing claims and buzzwords.' },
+  { id: 'SWARM-02', name: 'Skeptical Auditor (m/54)', role: 'Risk-Averse Quality Controller', focus: 'Transparency, Proven Proof Points & Risk Minimization', mindset: 'Questions every claim. Demands guarantees and precise facts without marketing hype.' },
+  { id: 'SWARM-03', name: 'First-Time Buyer (f/32)', role: 'Entry-Level Customer', focus: 'Planning Security, Clear Guidance & Transparent Budgeting', mindset: 'Seeks security and clarity. Responds strongly to trust elements and clear upfront pricing.' },
+  { id: 'SWARM-04', name: 'ROI-Driven Investor (m/48)', role: 'Yield & Cashflow Strategist', focus: 'ROI, Net Margin, Scalability & Equity Growth', mindset: 'Purely data and numbers driven. Rejects vague promises lacking financial substantiation.' },
+  { id: 'SWARM-05', name: 'Cautious Conservative (f/42)', role: 'Security-Oriented Decision Maker', focus: 'Solid Protection, Stability & Proven Frameworks', mindset: 'Avoids unproven experiments. Requires established, trusted market frameworks.' },
+  { id: 'SWARM-06', name: 'Legacy Asset Manager (m/39)', role: 'Substance Preserver & Successor', focus: 'Long-Term Value Preservation & Seamless Execution', mindset: 'Looks for simple, highly professional solutions for existing high-value assets.' },
+  { id: 'SWARM-07', name: 'Senior Estate Planner (m/67)', role: 'Generational Wealth Advisor', focus: 'Family Protection & Tax-Optimized Legacy Transfer', mindset: 'Thinks in terms of decades. Values dignified, authoritative, and respectful messaging.' },
+  { id: 'SWARM-08', name: 'Urban Career Executive (f/35)', role: 'Time-Constrained Senior Manager', focus: 'Time Optimization, Premium Service & Fast Execution', mindset: 'High purchasing power but severely time-constrained. Responds to high-end positioning.' },
+  { id: 'SWARM-09', name: 'Conservative Wealth Protector (m/61)', role: 'Capital Protection Specialist', focus: 'Inflation Defense & Tangible Asset Stability', mindset: 'Seeks stability during volatile market cycles. Dislikes aggressive pushy advertising.' },
+  { id: 'SWARM-10', name: 'ESG & Sustainability Advocate (f/31)', role: 'Sustainability Specialist', focus: 'Eco-Efficiency, ESG Compliance & Future-Proofing', mindset: 'Evaluates ecological alignment and long-term sustainable standards.' },
+  { id: 'SWARM-11', name: 'Value & Deal Hunter (m/44)', role: 'Cost-Performance Optimizer', focus: 'Undervalued Deals, High Leverage & Arbitrage Edge', mindset: 'Always searches for pricing leverage, value arbitrage, and strategic cost advantage.' },
+  { id: 'SWARM-12', name: 'Commercial Portfolio Scaler (m/52)', role: 'Multi-Unit B2B Investor', focus: 'Scalability, Portfolio Synergies & Enterprise Growth', mindset: 'Thinks in terms of multi-unit portfolios. Responds to structured B2B metrics.' },
+  { id: 'SWARM-13', name: 'Suburban Relocator (f/37)', role: 'Quality of Life & Space Seeker', focus: 'Expansion, Space, Work-Life Balance & Comfort', mindset: 'Escaping urban burnout, looking for sustainable spatial and lifestyle upgrades.' },
+  { id: 'SWARM-14', name: 'Downsizer / Best-Ager (f/64)', role: 'Low-Maintenance & Comfort Advocate', focus: 'Accessibility, Simplicity & Low Operational Friction', mindset: 'Streamlining footprint for maximum enjoyment without operational hassle.' },
+  { id: 'SWARM-15', name: 'Growth Tech Entrepreneur (m/33)', role: 'Scaling Founder', focus: 'Asymmetrical Leverage, Automation & Rapid Scaling', mindset: 'Seeks exponential leverage. Immediately understands modern AI-driven solutions.' },
+  { id: 'SWARM-16', name: 'Multi-Stakeholder Coordinator (f/45)', role: 'Organizational Planner', focus: 'Alignment, Multi-Gen Flexibility & Risk Balancing', mindset: 'Carefully balances requirements across diverse decision-makers before buying.' },
+  { id: 'SWARM-17', name: 'Passive Income Seeker (m/36)', role: 'Hands-Off Investor', focus: 'Automated Management & Frictionless Yield', mindset: 'Wants zero administrative overhead with maximum stress-free return.' },
+  { id: 'SWARM-18', name: 'Prestige & Status Buyer (m/46)', role: 'High-End Exclusive Buyer', focus: 'Exclusivity, Status, Brand Prestige & Craftsmanship', mindset: 'Seeks elite, premium-grade offerings unavailable to the mass market.' },
+  { id: 'SWARM-19', name: 'Value-Add Practitioner (m/41)', role: 'Hands-On Growth Optimizer', focus: 'Equity Creation, Renovation & Upside Potential', mindset: 'Looks for unpolished gems with high value-add potential.' },
+  { id: 'SWARM-20', name: 'Institutional Board Director (f/58)', role: 'Regulated Governance Officer', focus: 'Governance, Compliance, Low Volatility & Stability', mindset: 'Strict investment guidelines and conservative risk profile. Requires compliance.' }
 ];
+
+export const SWARM_PERSONAS = DEFAULT_ENGLISH_PERSONAS;
 
 export default class AgentSwarm extends BaseAgent {
   constructor() {
     super('agent_swarm');
-    this.personas = SWARM_PERSONAS;
+    this.personas = [...DEFAULT_ENGLISH_PERSONAS];
+    this.currentOffer = 'General Offer';
+    this.currentIndustry = 'General Industry';
+    this.currentAudience = 'Target Customers';
   }
 
   /**
-   * Evaluates candidate ad alternatives using the 20 persona test customer agents.
-   * @param {Array} adCandidates - List of scored ad alternatives (Grade A & B candidates)
-   * @param {string} track - 'RSA' or 'PMax'
-   * @param {string} [contextIndustry] - Industry context (e.g., Real Estate, Lead Gen)
-   * @returns {Promise<object>} Swarm evaluation report with statements & metric projections
+   * Derives offer, industry, and target audience from ad copy assets, theme, or context.
+   * @param {object} adContext
+   * @returns {object} { offer, industry, targetAudience }
    */
-  async runPredictiveTesting(adCandidates, track = 'RSA', contextIndustry = 'Immobilien & Lead Gen') {
-    this.log(`[START] Starting 20-Agent Swarm Predictive Asset Testing for ${adCandidates.length} top candidates...`);
-    this.log(`Track: ${track} | Industry Context: ${contextIndustry}`);
+  deriveOfferAndAudience(adContext = {}) {
+    let textToAnalyze = '';
+
+    if (adContext.headlines && Array.isArray(adContext.headlines)) {
+      textToAnalyze += adContext.headlines.join(' ') + ' ';
+    }
+    if (adContext.descriptions && Array.isArray(adContext.descriptions)) {
+      textToAnalyze += adContext.descriptions.join(' ') + ' ';
+    }
+    if (adContext.theme) {
+      textToAnalyze += adContext.theme + ' ';
+    }
+    if (adContext.contextIndustry) {
+      textToAnalyze += adContext.contextIndustry + ' ';
+    }
+
+    let offer = adContext.offer || '';
+    let industry = adContext.industry || adContext.contextIndustry || adContext.theme || '';
+    let targetAudience = adContext.targetAudience || '';
+
+    // Infer Industry if generic
+    if (!industry || industry === 'Immobilien & High-Price Lead Gen') {
+      const lower = textToAnalyze.toLowerCase();
+      if (lower.includes('saas') || lower.includes('software') || lower.includes('b2b')) {
+        industry = 'B2B Software & Tech Services';
+      } else if (lower.includes('finance') || lower.includes('refinanc') || lower.includes('loan') || lower.includes('bank') || lower.includes('kredit')) {
+        industry = 'Financial Services & Capital Management';
+      } else if (lower.includes('e-commerce') || lower.includes('shop') || lower.includes('store')) {
+        industry = 'E-Commerce & DTC Retail';
+      } else if (lower.includes('immo') || lower.includes('estate') || lower.includes('haus') || lower.includes('wohnung') || lower.includes('rendite')) {
+        industry = 'Real Estate & High-Ticket Investments';
+      } else {
+        industry = adContext.theme || 'Performance Marketing & Lead Gen';
+      }
+    }
+
+    // Infer Offer if not set
+    if (!offer) {
+      if (adContext.headlines && adContext.headlines.length > 0) {
+        offer = adContext.headlines.slice(0, 3).join(' | ');
+      } else if (adContext.theme) {
+        offer = `${adContext.theme} Solution`;
+      } else {
+        offer = 'High-Value Product / Service Offer';
+      }
+    }
+
+    // Infer Target Audience if not set
+    if (!targetAudience) {
+      const lowerInd = industry.toLowerCase();
+      if (lowerInd.includes('b2b') || lowerInd.includes('software')) {
+        targetAudience = 'B2B Executives, Founders & Operations Directors';
+      } else if (lowerInd.includes('real estate') || lowerInd.includes('immo')) {
+        targetAudience = 'High-Net-Worth Investors, Homebuyers & Property Owners';
+      } else if (lowerInd.includes('finance') || lowerInd.includes('capital')) {
+        targetAudience = 'Investors, Asset Managers & Capital Allocators';
+      } else {
+        targetAudience = 'Target Buyers & Decision Makers';
+      }
+    }
+
+    return { offer, industry, targetAudience };
+  }
+
+  /**
+   * Dynamically generates 20 persona test customer agents based on the ad copy, derived offer, industry, and target audience.
+   * Runs in ENGLISH.
+   * @param {object} adContext
+   * @param {string} [apiKey]
+   * @returns {Promise<Array>} List of 20 persona objects
+   */
+  async generateDynamicPersonas(adContext = {}, apiKey = null) {
+    const { offer, industry, targetAudience } = this.deriveOfferAndAudience(adContext);
+    this.currentOffer = offer;
+    this.currentIndustry = industry;
+    this.currentAudience = targetAudience;
+
+    this.log(`Dynamically generating 20 Persona Agents in English...`);
+    this.log(`  Derived Industry: ${industry}`);
+    this.log(`  Derived Offer:    ${offer}`);
+    this.log(`  Target Audience:  ${targetAudience}`);
+
+    const config = getConfig();
+    const activeApiKey = apiKey || config.geminiApiKey;
+
+    if (activeApiKey) {
+      try {
+        const personas = await this.generatePersonasWithLLM(activeApiKey, offer, industry, targetAudience, adContext);
+        if (personas && personas.length >= 15) {
+          this.personas = personas;
+          this.log(`[SUCCESS] LLM dynamically generated ${this.personas.length} personas tailored to offer & branding!`);
+          return this.personas;
+        }
+      } catch (err) {
+        this.log(`Notice: LLM persona generation fallback triggered (${err.message}). Using dynamic dynamic-fallback generator.`);
+      }
+    }
+
+    // Fallback dynamic persona generator in English
+    this.personas = this.generatePersonasFallback(offer, industry, targetAudience);
+    this.log(`[OK] Generated ${this.personas.length} dynamic English personas tailored to "${offer}" (${industry}).`);
+    return this.personas;
+  }
+
+  /**
+   * Generates 20 tailored English personas via Gemini LLM call.
+   */
+  async generatePersonasWithLLM(apiKey, offer, industry, targetAudience, adContext) {
+    const systemPrompt = `
+You are an AI Agent Swarm Architect specializing in customer persona generation for predictive ad testing.
+Your job is to generate exactly 20 distinct, highly realistic test customer personas (SWARM-01 through SWARM-20) in ENGLISH representing diverse sub-audiences, buyer types, decision-makers, and risk profiles tailored specifically to the offer, industry, and target audience of the given ad creative.
+
+Each persona MUST be an object with:
+- id: "SWARM-01" to "SWARM-20"
+- name: Persona Title with demographic/role tag in English (e.g. "Risk-Averse CFO (m/52)")
+- role: Customer or buyer job role in English (e.g. "Enterprise Financial Auditor")
+- focus: Key buying priorities & criteria for this specific offer in English
+- mindset: Psychographic attitude and behavior towards this offer in English
+
+Return ONLY a valid JSON array containing exactly 20 persona objects.
+`;
+
+    const sampleHeadlines = (adContext.headlines || []).slice(0, 5).join(' | ');
+    const sampleDescriptions = (adContext.descriptions || []).slice(0, 3).join(' | ');
+
+    const userPrompt = `
+CAMPAIGN & AD COPY CONTEXT FOR DYNAMIC PERSONA GENERATION:
+- Industry / Niche: ${industry}
+- Derived Offer: ${offer}
+- Primary Target Audience: ${targetAudience}
+- Sample Headlines: ${sampleHeadlines || 'N/A'}
+- Sample Descriptions: ${sampleDescriptions || 'N/A'}
+
+Generate 20 tailored English test customer personas in JSON format.
+`;
+
+    const rawText = await generateText(apiKey, systemPrompt, userPrompt, this.model, true);
+    let cleanJson = rawText.trim();
+    if (cleanJson.startsWith('```')) {
+      cleanJson = cleanJson.replace(/^```(json)?/i, '').replace(/```$/, '').trim();
+    }
+    const parsed = JSON.parse(cleanJson);
+    if (Array.isArray(parsed) && parsed.length >= 15) {
+      return parsed.map((p, idx) => ({
+        id: p.id || `SWARM-${(idx + 1).toString().padStart(2, '0')}`,
+        name: p.name || `Test Customer ${idx + 1}`,
+        role: p.role || `Buyer Role ${idx + 1}`,
+        focus: p.focus || `Key priorities for ${offer}`,
+        mindset: p.mindset || `Evaluates ${offer} based on value and fit.`
+      }));
+    }
+    throw new Error('Invalid persona array returned from LLM');
+  }
+
+  /**
+   * Deterministic dynamic fallback generator for 20 English personas tailored to offer & industry.
+   */
+  generatePersonasFallback(offer, industry, targetAudience) {
+    return [
+      { id: 'SWARM-01', name: 'Early Tech Adopter (m/28)', role: 'Innovation Driver', focus: `Efficiency, Automation & Modern Stack in ${industry}`, mindset: `Constantly seeks technological edge for ${offer}. Critical of outdated marketing claims.` },
+      { id: 'SWARM-02', name: 'Skeptical Auditor (m/54)', role: 'Risk-Averse Controller', focus: `Transparency, Data Proof & Risk Reduction for ${offer}`, mindset: `Questions every claim. Demands verifiable facts and proof before committing.` },
+      { id: 'SWARM-03', name: 'First-Time Buyer (f/32)', role: 'Entry-Level Customer', focus: `Planning Security, Transparent Pricing & Clear Guidance`, mindset: `Seeks security and trust when evaluating ${offer}. Responds strongly to transparent terms.` },
+      { id: 'SWARM-04', name: 'ROI-Driven Investor (m/48)', role: 'Yield & Performance Specialist', focus: `ROI, Net Margins, Cashflow & Measurable Gains`, mindset: `Data and ROI-focused. Dismissive of marketing hype lacking financial proof for ${offer}.` },
+      { id: 'SWARM-05', name: 'Cautious Conservative (f/42)', role: 'Security-Oriented Decision Maker', focus: `Solid Protection, Stability & Proven Industry Frameworks`, mindset: `Avoids unnecessary risks. Requires established, trusted solutions in ${industry}.` },
+      { id: 'SWARM-06', name: 'Legacy Asset Manager (m/39)', role: 'Substance & Succession Specialist', focus: `Long-Term Value Preservation & Hassle-Free Execution`, mindset: `Seeks seamless, highly professional execution for existing high-value assets.` },
+      { id: 'SWARM-07', name: 'Senior Estate Planner (m/67)', role: 'Generational Advisor', focus: `Protection & Sustainable Value Transition`, mindset: `Thinks in terms of decades. Prefers dignified, authoritative, and respectful positioning.` },
+      { id: 'SWARM-08', name: 'Urban Career Executive (f/35)', role: 'Time-Constrained Senior Manager', focus: `Time Savings, Premium Service & Fast Implementation`, mindset: `Has budget but limited time. Responds strongly to premium service for ${offer}.` },
+      { id: 'SWARM-09', name: 'Conservative Wealth Protector (m/61)', role: 'Capital Protection Specialist', focus: `Purchasing Power Defense & Asset Security`, mindset: `Seeks stability in volatile market environments. Dislikes aggressive pushy ads.` },
+      { id: 'SWARM-10', name: 'ESG & Sustainability Advocate (f/31)', role: 'Sustainability Specialist', focus: `Eco-Efficiency, ESG Compliance & Future-Proofing`, mindset: `Prioritizes ecological standards and sustainable long-term standards in ${industry}.` },
+      { id: 'SWARM-11', name: 'Value & Arbitrage Hunter (m/44)', role: 'Cost-Performance Optimizer', focus: `Undervalued Deals & Competitive Leverage`, mindset: `Always searches for pricing leverage and strategic advantage with ${offer}.` },
+      { id: 'SWARM-12', name: 'Commercial Portfolio Scaler (m/52)', role: 'Multi-Unit B2B Investor', focus: `Scalability, Synergies & Enterprise Metrics`, mindset: `Thinks in terms of scale. Evaluates structured B2B performance metrics.` },
+      { id: 'SWARM-13', name: 'Suburban Relocator (f/37)', role: 'Quality of Life & Space Seeker', focus: `Expansion, Work-Life Balance & Comfort`, mindset: `Looking to upgrade performance and experience with minimal operational friction.` },
+      { id: 'SWARM-14', name: 'Downsizer / Best-Ager (f/64)', role: 'Low-Maintenance Advocate', focus: `Ease of Use, Maintenance-Free & Accessibility`, mindset: `Streamlines operations for maximum peace of mind with ${offer}.` },
+      { id: 'SWARM-15', name: 'Growth Tech Entrepreneur (m/33)', role: 'Scaling Founder', focus: `Asymmetrical Leverage & Autonomous Workflows`, mindset: `Seeks high leverage. Immediately grasps modern automated frameworks for ${offer}.` },
+      { id: 'SWARM-16', name: 'Multi-Stakeholder Planner (f/45)', role: 'Organizational Coordinator', focus: `Alignment, Flexibility & Risk Mitigation`, mindset: `Balances requirements across diverse internal decision-makers before buying.` },
+      { id: 'SWARM-17', name: 'Passive Income Seeker (m/36)', role: 'Hands-Off Customer', focus: `Automated Management & Stress-Free Returns`, mindset: `Wants zero administrative overhead with maximum operational efficiency.` },
+      { id: 'SWARM-18', name: 'Prestige & Status Buyer (m/46)', role: 'High-End Status Buyer', focus: `Exclusivity, Brand Prestige & Distinction`, mindset: `Seeks elite, premium-grade solutions that set them apart from competitors.` },
+      { id: 'SWARM-19', name: 'Value-Add Specialist (m/41)', role: 'Hands-On Growth Optimizer', focus: `Equity Creation, Renovation & Upside Potential`, mindset: `Looks for unpolished gems with high upside potential for ${offer}.` },
+      { id: 'SWARM-20', name: 'Institutional Board Director (f/58)', role: 'Regulated Governance Officer', focus: `Governance, Compliance & Low Volatility`, mindset: `Strict guidelines and conservative risk profile. Requires compliance for ${industry}.` }
+    ];
+  }
+
+  /**
+   * Evaluates candidate ad alternatives using the dynamically generated 20 persona customer agents in ENGLISH.
+   * @param {Array} adCandidates - List of scored ad alternatives
+   * @param {string} [track='RSA'] - 'RSA' or 'PMax'
+   * @param {string} [contextIndustry] - Industry context
+   * @param {object} [adContext={}] - Context containing headlines, descriptions, theme, url, offer, audience
+   * @returns {Promise<object>} Swarm evaluation report with statements & metric projections in English
+   */
+  async runPredictiveTesting(adCandidates, track = 'RSA', contextIndustry = 'General Industry', adContext = {}) {
+    this.log(`[START] Starting 20-Agent Swarm Predictive Asset Testing in English...`);
+    
+    // Combine candidate information with adContext to generate dynamic personas
+    const combinedContext = {
+      contextIndustry,
+      theme: adContext.theme || contextIndustry,
+      finalUrl: adContext.finalUrl,
+      headlines: adContext.headlines || (adCandidates[0] ? adCandidates[0].headlines : []),
+      descriptions: adContext.descriptions || (adCandidates[0] ? adCandidates[0].descriptions : []),
+      offer: adContext.offer,
+      targetAudience: adContext.targetAudience
+    };
+
+    // Dynamically generate personas for this ad creative & offer
+    await this.generateDynamicPersonas(combinedContext);
+
+    this.log(`Track: ${track} | Industry: ${this.currentIndustry} | Offer: ${this.currentOffer}`);
+    this.log(`Active Personas: 20 Swarm Agents generated dynamically for ${this.currentAudience}`);
 
     const config = getConfig();
     const hasLLM = Boolean(config.geminiApiKey);
 
     const evaluatedCandidates = [];
-
-    // Evaluate up to top 5 candidates in depth with the 20-agent swarm
-    const topCandidates = adCandidates.slice(0, 5);
+    const topCandidates = adCandidates.slice(0, adContext.topCount || 40);
 
     for (let i = 0; i < topCandidates.length; i++) {
       const candidate = topCandidates[i];
@@ -58,10 +266,8 @@ export default class AgentSwarm extends BaseAgent {
       let swarmResults = [];
 
       if (hasLLM) {
-        // Run batch evaluation via LLM for precision
-        swarmResults = await this.evaluateCandidateWithLLMSwarm(config.geminiApiKey, candidate, track, contextIndustry);
+        swarmResults = await this.evaluateCandidateWithLLMSwarm(config.geminiApiKey, candidate, track, this.currentIndustry);
       } else {
-        // Fallback simulation mode
         swarmResults = this.simulateSwarmEvaluation(candidate, track);
       }
 
@@ -99,7 +305,6 @@ export default class AgentSwarm extends BaseAgent {
       });
     }
 
-    // Sort by Swarm Approval Rate & Matrix Score
     evaluatedCandidates.sort((a, b) => b.swarmSummary.approvalRatePercent - a.swarmSummary.approvalRatePercent);
 
     const winner = evaluatedCandidates[0];
@@ -113,6 +318,9 @@ export default class AgentSwarm extends BaseAgent {
     return {
       timestamp: new Date().toISOString(),
       track,
+      industry: this.currentIndustry,
+      offer: this.currentOffer,
+      targetAudience: this.currentAudience,
       totalCandidatesTested: topCandidates.length,
       swarmSize: this.personas.length,
       winnerCandidateId: winner ? winner.candidateId : null,
@@ -121,31 +329,25 @@ export default class AgentSwarm extends BaseAgent {
   }
 
   /**
-   * Uses Gemini to evaluate a candidate ad against all 20 personas in a single structured call.
+   * Uses Gemini to evaluate a candidate ad against all 20 dynamic personas in English.
    */
   async evaluateCandidateWithLLMSwarm(apiKey, candidate, track, contextIndustry) {
     const systemPrompt = `
-Du bist ein hochpräziser Simulator für ein Swarm-Testing-System aus 20 unterschiedlichen Testkunden-Personas (Agent Swarm).
-Deine Aufgabe ist es, eine Werbeanzeige (Track: ${track}, Branchenkontext: ${contextIndustry}) aus den Perspektiven aller 20 Personas zu analysieren und deren Statement sowie Leistungskennzahlen-Hochrechnung abzugeben.
+You are a high-precision simulator for an Agent Swarm testing system consisting of 20 distinct test customer personas (Agent Swarm).
+Your task is to analyze an ad creative (Track: ${track}, Industry Context: ${contextIndustry}, Offer: ${this.currentOffer}) from the perspectives of all 20 dynamically generated personas and output their qualitative statement and performance metric projections.
 
-Die 20 Personas sind:
-${this.personas.map(p => `- ${p.id}: ${p.name} (${p.role}). Fokus: ${p.focus}. Mindset: ${p.mindset}`).join('\n')}
+CRITICAL INSTRUCTION: ALL STATEMENTS, FEEDBACK, AND COMMENTS MUST BE IN ENGLISH.
 
-Werte die Anzeige gründlich aus und liefere für JEDE der 20 Personas:
-1. score: Note 1-10 (wie gut spricht die Anzeige diese Persona an)
-2. statement: Ein authentischer 1-2 Sätze Kommentar im O-Ton der Persona
-3. projectedCTR: Geschätzte CTR in % (z.B. 3.5 bis 9.8)
-4. projectedCPC: Geschätzter CPC in € (z.B. 1.20 bis 4.50)
-5. projectedCPM: Geschätzter CPM in € (z.B. 18.50 bis 55.00)
-6. projectedCPL: Geschätzter Cost per Lead / CPL in € (z.B. 28.00 bis 110.00)
+The 20 dynamic personas are:
+${this.personas.map(p => `- ${p.id}: ${p.name} (${p.role}). Focus: ${p.focus}. Mindset: ${p.mindset}`).join('\n')}
 
-Gib die Antwort ZWINGEND als JSON-Array mit 20 Objekten zurück:
+Evaluate the ad copy thoroughly from each persona's mindset and return a JSON array containing exactly 20 objects:
 [
   {
     "personaId": "SWARM-01",
     "personaName": "Early Tech Adopter (m/28)",
     "score": 8.5,
-    "statement": "...",
+    "statement": "Authentic 1-2 sentence feedback comment in English in the persona's tone",
     "projectedCTR": 6.8,
     "projectedCPC": 2.10,
     "projectedCPM": 32.00,
@@ -156,10 +358,12 @@ Gib die Antwort ZWINGEND als JSON-Array mit 20 Objekten zurück:
 `;
 
     const userPrompt = `
-ANZEIGEN-DRAFT FÜR BEWERTUNG:
-ID: ${candidate.id}
+AD DRAFT FOR EVALUATION:
+Candidate ID: ${candidate.id}
+Offer: ${this.currentOffer}
+Industry: ${contextIndustry}
 Spine Theme: ${candidate.spineTheme}
-Angle / Metapher: ${candidate.metaphor}
+Angle / Metaphor: ${candidate.metaphor}
 Framework: ${candidate.vectorization.d1_framework} | Angle: ${candidate.vectorization.d2_angle} | Hook: ${candidate.vectorization.d5_hook_type}
 
 Headlines:
@@ -188,18 +392,16 @@ ${candidate.descriptions.map(d => `- ${d}`).join('\n')}
   }
 
   /**
-   * Deterministic mathematical fallback simulation for 20 personas.
+   * Deterministic mathematical fallback simulation for 20 dynamic personas in ENGLISH.
    */
   simulateSwarmEvaluation(candidate, track) {
     const baseScore = candidate.matrixEvaluation.weighted_score;
     const isPMax = track.toUpperCase() === 'PMAX';
 
     return this.personas.map((p, idx) => {
-      // Apply variation based on persona fit to framework/angle
-      const variance = ((idx * 7) % 19 - 9) / 10; // -0.9 to +0.9
+      const variance = ((idx * 7) % 19 - 9) / 10;
       const personaScore = Math.min(9.9, Math.max(3.0, parseFloat((baseScore + variance).toFixed(1))));
 
-      // Calculate realistic metrics
       const ctr = parseFloat((3.5 + (personaScore / 10) * 4.8 + (idx % 3) * 0.4).toFixed(2));
       const cpc = parseFloat((3.80 - (personaScore / 10) * 1.60 + (idx % 4) * 0.25).toFixed(2));
       const cpm = parseFloat((24.00 + (10 - personaScore) * 3.50 + (idx % 5) * 2.10).toFixed(2));
@@ -207,11 +409,11 @@ ${candidate.descriptions.map(d => `- ${d}`).join('\n')}
 
       let statement = '';
       if (personaScore >= 8.0) {
-        statement = `"Der Story-Spin '${candidate.spineTheme}' holt mich genau an meinem Schmerzpunkt ab. Diese Ansprache hebt sich deutlich von der Konkurrenz ab!"`;
+        statement = `"The story spin '${candidate.spineTheme}' directly hits my core priority for ${this.currentOffer}. This messaging stands out clearly from competitors!"`;
       } else if (personaScore >= 6.5) {
-        statement = `"Guter Ansatz mit dem Framework ${candidate.vectorization.d1_framework}. Klare Argumentation und verständlicher Call-to-Action."`;
+        statement = `"Solid approach using the ${candidate.vectorization.d1_framework} framework. Clear value proposition and understandable call-to-action."`;
       } else {
-        statement = `"Klingt noch etwas zu gewöhnlich für meine Bedürfnisse. Hier wünsche ich mir einen schärferen Hook."`;
+        statement = `"Feels a bit generic for my specific requirements. I would expect a sharper hook and stronger proof points for ${this.currentOffer}."`;
       }
 
       return {
@@ -227,3 +429,4 @@ ${candidate.descriptions.map(d => `- ${d}`).join('\n')}
     });
   }
 }
+
