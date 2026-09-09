@@ -2,6 +2,11 @@
 
 ai-ads-pipeline is a persistent AI agent framework designed to automatically generate, optimize, and upload compliant, high-performing Responsive Search Ad (RSA) alternatives to Google Ads. It uses a structured 4-agent workflow powered by Gemini and the Google Ads API.
 
+> [!IMPORTANT]
+> **Vorbedingung für die KI-Verarbeitung:**
+> Starte bitte vorher Google Antigravity mit dem Befehl **`agy`** in deiner Konsole!
+> Erst innerhalb der Antigravity CLI kannst du interaktiv mit den Befehlen und Agenten der AI Ads Pipeline chatten und die Asset-Creation-Prozesse bedienen. Auf normaler Shell-Ebene ohne Antigravity findet keine KI-Verarbeitung statt (statische Test-Outputs werden automatisch übersprungen).
+
 ## Architecture & Agents
 
 This package contains two main workflows: a 4-Agent Optimization Pipeline for generating responsive search ad alternatives, and an interactive Keyword Planner Chat Agent.

@@ -545,3 +545,47 @@ footer a {
 footer a:hover {
   color: var(--brand-green);
 }
+
+/* Antigravity CLI Prerequisite Banner & Glowing effects */
+.terminal-panel.glow-yellow {
+  border-color: #eab308;
+  box-shadow: 0 0 30px rgba(234, 179, 8, 0.25);
+}
+
+.agy-prerequisite-banner {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #fef08a;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.agy-prerequisite-banner .banner-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.agy-prerequisite-banner .banner-text strong {
+  color: #ffffff;
+}
+
+.agy-prerequisite-banner code {
+  background: rgba(29, 217, 0, 0.15);
+  color: var(--brand-green);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(29, 217, 0, 0.4);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+

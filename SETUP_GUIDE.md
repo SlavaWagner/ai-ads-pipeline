@@ -2,6 +2,11 @@
 
 This guide walks you through the initial setup, credential storage, and Google Ads OAuth2 authentication process for the **AI Ads Pipeline** CLI.
 
+> [!IMPORTANT]
+> **Vorbedingung für die KI-Verarbeitung:**
+> Starte bitte vorher Google Antigravity mit dem Befehl **`agy`** in deiner Konsole!
+> Erst innerhalb der Antigravity CLI kannst du interaktiv mit den Befehlen der ai-ads-Pipeline chatten und die Asset-Creation-Prozesse bedienen.
+
 ---
 
 ## 1. Prerequisites
