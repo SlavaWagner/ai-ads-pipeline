@@ -104,16 +104,14 @@ function showAgyPrerequisiteWarning(attemptedCmd) {
   console.log(whiteBold('     chatten und sämtliche Optimierungs- und Asset-Creation-Workflows steuern.'));
   console.log();
   console.log(yellowBox('================================================================================'));
-  console.log(chalk.gray('  (Web-Dashboard starten:  ai-ads-pipeline dashboard)'));
   console.log(chalk.gray('  (Entwickler-Override:   Befehl mit "--force" oder "--inside-agy" ausführen)'));
   console.log();
 }
 
 // Intercept execution early if executed in normal shell outside Antigravity
 const rawArgs = process.argv.slice(2);
-const isDashboardRequested = rawArgs.includes('dashboard');
 
-if (!isRunningInsideAntigravity() && !isDashboardRequested) {
+if (!isRunningInsideAntigravity()) {
   showAgyPrerequisiteWarning(rawArgs.join(' '));
   process.exit(0);
 }
@@ -322,50 +320,7 @@ program
     }
   });
 
-// DASHBOARD Command
-program
-  .command('dashboard')
-  .description('Start Visual Web Dashboard Server')
-  .option('-p, --port <number>', 'Port to run server on', '8080')
-  .action((options) => {
-    const port = parseInt(options.port, 10);
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const projectRoot = path.resolve(__dirname, '..');
 
-    const server = http.createServer((req, res) => {
-      let safePath = path.normalize(req.url).replace(/^(\.\.[\/\\])+/, '');
-      if (safePath === '/' || safePath === '\\') {
-        safePath = '/index.html';
-      }
-      const filePath = path.join(projectRoot, safePath);
-
-      const ext = path.extname(filePath).toLowerCase();
-      let contentType = 'text/plain';
-      if (ext === '.html') contentType = 'text/html; charset=utf-8';
-      else if (ext === '.css') contentType = 'text/css';
-      else if (ext === '.js') contentType = 'application/javascript';
-      else if (ext === '.json') contentType = 'application/json';
-      else if (ext === '.svg') contentType = 'image/svg+xml';
-
-      fs.readFile(filePath, (err, content) => {
-        if (err) {
-          res.writeHead(404, { 'Content-Type': 'text/html' });
-          res.end('<h1>404 Not Found</h1>', 'utf-8');
-        } else {
-          res.writeHead(200, { 'Content-Type': contentType });
-          res.end(content, 'utf-8');
-        }
-      });
-    });
-
-    server.listen(port, () => {
-      console.log(chalk.bold.green(`\n[OK] Dashboard server started on http://localhost:${port}`));
-      console.log(chalk.gray('Press Ctrl+C to stop.\n'));
-      const openCmd = process.platform === 'win32' ? 'start' : process.platform === 'darwin' ? 'open' : 'xdg-open';
-      exec(`${openCmd} http://localhost:${port}`, () => {});
-    });
-  });
 
 // AGENT Command
 const agentCmd = program.command('agent').description('Manage Persistent AI Agents');

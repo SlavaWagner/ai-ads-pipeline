@@ -95,20 +95,19 @@ npm link
 
 Alle Befehle werden innerhalb der Google Antigravity CLI (`agy`) ausgeführt:
 
-| Befehl | Argumente / Optionen | Kurzbeschreibung |
-| :--- | :--- | :--- |
-| `ai-ads-pipeline run-workflow` | `-f, --framework <name>` | Startet den 4-Agenten RSA-Workflow: Aktive Ads abrufen, 15 Headlines & 4 Descriptions schreiben, auf Richtlinien prüfen und als `PAUSED` Ad hochladen. |
-| `ai-ads-pipeline run-pmax` | `-f, --framework <name>` | Startet den Performance Max Asset Group Workflow: 15 Headlines, 4 Long Headlines, 4 Descriptions erzeugen und als pausierte Asset Group anlegen. |
-| `ai-ads-pipeline preproduce` | `-t, --theme <topic>`<br>`-k, --track <rsa\|pmax>`<br>`-c, --count <num>`<br>`-u, --url <url>`<br>`--no-swarm` | Vorproduktion von bis zu 400 Ad-Alternativen basierend auf 40 psychologischen Blickwinkeln, 6D-Vektorisierung, 20-Agenten Schwarmtest & 30-Tage ETS-Forecast. |
-| `ai-ads-pipeline swarm-test` | `-k, --track <rsa\|pmax>` | Standalone Persona Swarm Test auf Ad-Creatives mit 20 dynamischen englischsprachigen Zielgruppen-Personas (inkl. CTR-, CPC-, CPM- und CPL-Prognose). |
-| `ai-ads-pipeline framework` | `[angles\|audiences\|business\|copywritings\|sophistication\|none]` | Wählt interaktiv oder direkt das Standard-Psychologie-Framework für alle zukünftigen Texterstellungs-Workflows aus. |
-| `ai-ads-pipeline keywords` | Keine | Interaktive Keyword-Recherche über die Google Ads Keyword Planner API inklusive Intent-Clustering (ToFu, MoFu, High-Intent) und iterativer Verfeinerung. |
-| `ai-ads-pipeline skills` | Keine | Startet einen interaktiven Strategie-Chat basierend auf hinterlegten Google Ads Standard Operating Procedures (SOPs). |
-| `ai-ads-pipeline chat` | `[agentName]` | Startet eine Multi-Turn-Chat-Session mit einem spezifischen Agenten (`orchestrator`, `copywriter`, `reviewer`, `uploader`). |
-| `ai-ads-pipeline dashboard` | `-p, --port <number>` | Startet das lokale Web-Dashboard zur visuellen Überwachung von Systemmetriken, Runs und Agentenstatus. |
-| `ai-ads-pipeline setup` | Keine | Interaktiver Einrichtungsassistent für Gemini API Key, Google Ads OAuth2 (Port 8085) und Standard-Kampagneneinstellungen. |
-| `ai-ads-pipeline refresh-token` | Keine | Erneuert sofort das Google Ads API OAuth2 Access-Token. |
-| `ai-ads-pipeline agent list` | Keine | Listet alle persistent gespeicherten KI-Agenten und deren Aufgabenbereiche auf. |
+| Befehl | Kurzbeschreibung |
+| :--- | :--- |
+| `ai-ads-pipeline run-workflow` | Startet den 4-Agenten RSA-Workflow: Aktive Ads abrufen, 15 Headlines & 4 Descriptions schreiben, auf Richtlinien prüfen und als `PAUSED` Ad hochladen. |
+| `ai-ads-pipeline run-pmax` | Startet den Performance Max Asset Group Workflow: 15 Headlines, 4 Long Headlines, 4 Descriptions erzeugen und als pausierte Asset Group anlegen. |
+| `ai-ads-pipeline preproduce` | Vorproduktion von bis zu 400 Ad-Alternativen basierend auf 40 psychologischen Blickwinkeln, 6D-Vektorisierung, 20-Agenten Schwarmtest & 30-Tage ETS-Forecast. |
+| `ai-ads-pipeline swarm-test` | Standalone Persona Swarm Test auf Ad-Creatives mit 20 dynamischen englischsprachigen Zielgruppen-Personas (inkl. CTR-, CPC-, CPM- und CPL-Prognose). |
+| `ai-ads-pipeline framework` | Wählt interaktiv oder direkt das Standard-Psychologie-Framework für alle zukünftigen Texterstellungs-Workflows aus. |
+| `ai-ads-pipeline keywords` | Interaktive Keyword-Recherche über die Google Ads Keyword Planner API inklusive Intent-Clustering (ToFu, MoFu, High-Intent) und iterativer Verfeinerung. |
+| `ai-ads-pipeline skills` | Startet einen interaktiven Strategie-Chat basierend auf hinterlegten Google Ads Standard Operating Procedures (SOPs). |
+| `ai-ads-pipeline chat` | Startet eine Multi-Turn-Chat-Session mit einem spezifischen Agenten (`orchestrator`, `copywriter`, `reviewer`, `uploader`). |
+| `ai-ads-pipeline setup` | Interaktiver Einrichtungsassistent für Gemini API Key, Google Ads OAuth2 (Port 8085) und Standard-Kampagneneinstellungen. |
+| `ai-ads-pipeline refresh-token` | Erneuert sofort das Google Ads API OAuth2 Access-Token. |
+| `ai-ads-pipeline agent list` | Listet alle persistent gespeicherten KI-Agenten und deren Aufgabenbereiche auf. |
 
 ### Detaillierte Befehlsbeschreibungen:
 
@@ -181,10 +180,6 @@ Alle Befehle werden innerhalb der Google Antigravity CLI (`agy`) ausgeführt:
   ai-ads-pipeline chat orchestrator
   ```
 
-* **Visual Web Dashboard**: Start the local browser dashboard server to view telemetry and system status:
-  ```bash
-  ai-ads-pipeline dashboard
-  ```
 
 * **Interactive Setup**: Set up credentials and perform OAuth2 authentication:
   ```bash
