@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -20,7 +20,7 @@ STRICT AD CREATION & ANGLE SEARCH RULES:
 4. NO FRAMEWORK OR TECH LABELS: NEVER mention copywriting framework names (PAS, AIDA, FAB, MVP Pivot, Big Five, DISG) or AI/tech buzzwords (KI, AI, KI-Infrastruktur, technologischer Vorsprung, SEA-Infrastruktur) in customer-facing ad copy.
 5. All headlines must be <= 30 characters. All long headlines and descriptions must be <= 90 characters.`,
     skills: ['LandingPageScrapeSkill', 'LLMGenerateSkill'],
-    model: 'gemini-1.5-flash'
+    model: 'antigravity'
   },
   agent_swarm: {
     name: 'agent_swarm',
@@ -28,7 +28,7 @@ STRICT AD CREATION & ANGLE SEARCH RULES:
     description: 'Deploys 20 test customer persona agents across diverse sub-audiences to evaluate ad creatives and project CTR, CPC, CPM, and CPL metrics prior to launch.',
     systemPrompt: 'You are the 20-Agent Persona Swarm Agent. You evaluate ad creatives from 20 distinct customer persona perspectives and estimate performance metrics in English.',
     skills: ['LLMGenerateSkill'],
-    model: 'gemini-1.5-flash'
+    model: 'antigravity'
   }
 };
 
@@ -85,3 +85,4 @@ export function saveRunLog(runLog) {
   fs.writeFileSync(logPath, JSON.stringify(runLog, null, 2), 'utf8');
   return logPath;
 }
+

@@ -1,0 +1,160 @@
+<svg class="swa-circuit-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      
+      <defs>
+    <style>
+      .dbt-node { stroke: #14161c; stroke-width: 1.2; fill: #08090d; }
+      .dbt-node-icon { fill: #11131a; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Courier New", monospace, sans-serif; }
+    </style>
+  
+        <marker id="arrow-marker" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#3cea27" />
+        </marker>
+        <marker id="arrow-marker-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#60a5fa" />
+        </marker>
+        <marker id="arrow-marker-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#7c62ff" />
+        </marker>
+      </defs>
+  <rect width="100%" height="100%" rx="12" fill="#050505" stroke="#14161c" stroke-width="1.5"/>
+
+      <!-- ==================== SIGNAL LEITUNGEN (VERBINDUNGEN) ==================== -->
+      
+      <!-- 1. Von Sources nach unten (Grün #3cea27) -->
+      <!-- Source 1 zu Angles & Audiences -->
+      <path d="M 137 78 C 137 98, 102 98, 102 120" stroke="#3cea27" stroke-width="1.8" fill="none" marker-end="url(#arrow-marker)" />
+      <path d="M 200 78 C 200 98, 240 98, 240 120" stroke="#3cea27" stroke-width="1.4" fill="none" marker-end="url(#arrow-marker)" />
+      
+      <!-- Source 2 zu Business Copy & Audiences -->
+      <path d="M 363 78 C 363 98, 398 98, 398 120" stroke="#3cea27" stroke-width="1.8" fill="none" marker-end="url(#arrow-marker)" />
+      <path d="M 300 78 C 300 98, 260 98, 260 120" stroke="#3cea27" stroke-width="1.4" fill="none" marker-end="url(#arrow-marker)" />
+
+      <!-- Äußere Bypass-Leitungen von den Sources direkt in die Flanken des Core -->
+      <path d="M 45 78 C 12 115, 12 280, 150 311" stroke="#3cea27" stroke-width="1.8" fill="none" marker-end="url(#arrow-marker)" />
+      <path d="M 455 78 C 488 115, 488 280, 350 311" stroke="#3cea27" stroke-width="1.8" fill="none" marker-end="url(#arrow-marker)" />
+
+      <!-- 2. Von den 5 Frameworks fächerförmig nach unten in den Compliance Review Core (Violett #7c62ff) -->
+      <path d="M 102 164 C 102 240, 180 240, 180 285" stroke="#7c62ff" stroke-width="1.6" fill="none" marker-end="url(#arrow-marker-purple)" />
+      <path d="M 167 224 C 167 255, 215 255, 215 285" stroke="#7c62ff" stroke-width="1.6" fill="none" marker-end="url(#arrow-marker-purple)" />
+      <path d="M 250 164 L 250 285" stroke="#7c62ff" stroke-width="1.6" fill="none" marker-end="url(#arrow-marker-purple)" />
+      <path d="M 332 224 C 332 255, 285 255, 285 285" stroke="#7c62ff" stroke-width="1.6" fill="none" marker-end="url(#arrow-marker-purple)" />
+      <path d="M 398 164 C 398 240, 320 240, 320 285" stroke="#7c62ff" stroke-width="1.6" fill="none" marker-end="url(#arrow-marker-purple)" />
+
+      <!-- 3. Vom Core senkrecht nach unten in den Uploader (Blau #60a5fa) -->
+      <path d="M 250 337 L 250 410" stroke="#60a5fa" stroke-width="2.5" fill="none" marker-end="url(#arrow-marker-blue)" />
+
+
+      <!-- ==================== TIER 1: QUELLEN / SOURCES (OBEN) ==================== -->
+      
+      <!-- Source 1: Active Creative Extraction -->
+      <g class="node-group">
+        <rect class="dbt-node" x="35" y="28" width="205" height="50" />
+        <rect class="dbt-node-icon" x="43" y="38" width="30" height="30" />
+        <g transform="translate(53, 53)"><text fill="#8e96a3" font-size="8" font-family="monospace" font-weight="bold" text-anchor="middle" y="3">SRC</text></g>
+        <text x="79" y="52" fill="#ffffff" font-size="8" font-family="monospace">Active Creative Extraction</text>
+        <text x="79" y="65" fill="#8e96a3" font-size="6.5" font-family="monospace">Google Ads RSA Pool</text>
+      </g>
+        
+      <!-- Source 2: Landingpage Scrape Target -->
+      <g class="node-group">
+        <rect class="dbt-node" x="260" y="28" width="205" height="50" />
+        <rect class="dbt-node-icon" x="268" y="38" width="30" height="30" />
+        <g transform="translate(278, 53)"><text fill="#8e96a3" font-size="8" font-family="monospace" font-weight="bold" text-anchor="middle" y="3">SRC</text></g>
+        <text x="304" y="52" fill="#ffffff" font-size="8" font-family="monospace">Landingpage Scrape Target</text>
+        <text x="304" y="65" fill="#8e96a3" font-size="6.5" font-family="monospace">Final URL Context</text>
+      </g>
+
+
+      <!-- ==================== TIER 2: ASSET-CREATION FRAMEWORKS (MITTE-OBEN) ==================== -->
+      
+      <!-- Reihe 2A (3 Boxen nebeneinander) -->
+      
+      <!-- Box 1: Angles -->
+      <g class="node-group">
+        <rect class="dbt-node" x="35" y="120" width="134" height="44" />
+        <rect class="dbt-node-icon" x="41" y="128" width="22" height="22" />
+        <g transform="translate(52, 139)"><text fill="#7c62ff" font-size="7" font-family="monospace" font-weight="bold" text-anchor="middle" y="2">FWK</text></g>
+        <text x="68" y="139" fill="#ffffff" font-size="7.5" font-family="monospace">Angles</text>
+        <text x="68" y="150" fill="#8e96a3" font-size="6.5" font-family="monospace">Pain &amp; Solution</text>
+        <rect x="127" y="115" width="36" height="10" rx="0" ry="0" fill="#7c62ff" />
+        <text x="145" y="122" fill="#ffffff" font-size="5.5" font-family="monospace" font-weight="bold" text-anchor="middle">ANGLE</text>
+      </g>
+
+      <!-- Box 2: Audiences -->
+      <g class="node-group">
+        <rect class="dbt-node" x="183" y="120" width="134" height="44" />
+        <rect class="dbt-node-icon" x="189" y="128" width="22" height="22" />
+        <g transform="translate(200, 139)"><text fill="#7c62ff" font-size="7" font-family="monospace" font-weight="bold" text-anchor="middle" y="2">FWK</text></g>
+        <text x="216" y="139" fill="#ffffff" font-size="7.5" font-family="monospace">Audiences</text>
+        <text x="216" y="150" fill="#8e96a3" font-size="6.5" font-family="monospace">Sub-Audiences</text>
+        <rect x="275" y="115" width="36" height="10" rx="0" ry="0" fill="#7c62ff" />
+        <text x="293" y="122" fill="#ffffff" font-size="5.5" font-family="monospace" font-weight="bold" text-anchor="middle">AUD</text>
+      </g>
+
+      <!-- Box 3: Business Frameworks -->
+      <g class="node-group">
+        <rect class="dbt-node" x="331" y="120" width="134" height="44" />
+        <rect class="dbt-node-icon" x="337" y="128" width="22" height="22" />
+        <g transform="translate(348, 139)"><text fill="#7c62ff" font-size="7" font-family="monospace" font-weight="bold" text-anchor="middle" y="2">FWK</text></g>
+        <text x="364" y="139" fill="#ffffff" font-size="7.5" font-family="monospace">Business Copy</text>
+        <text x="364" y="150" fill="#8e96a3" font-size="6.5" font-family="monospace">AIDA / PAS / BAB</text>
+        <rect x="423" y="115" width="36" height="10" rx="0" ry="0" fill="#7c62ff" />
+        <text x="441" y="122" fill="#ffffff" font-size="5.5" font-family="monospace" font-weight="bold" text-anchor="middle">BIZ</text>
+      </g>
+
+      <!-- Reihe 2B (2 Boxen zentriert) -->
+
+      <!-- Box 4: Copywritings -->
+      <g class="node-group">
+        <rect class="dbt-node" x="95" y="180" width="145" height="44" />
+        <rect class="dbt-node-icon" x="101" y="188" width="22" height="22" />
+        <g transform="translate(112, 199)"><text fill="#7c62ff" font-size="7" font-family="monospace" font-weight="bold" text-anchor="middle" y="2">FWK</text></g>
+        <text x="128" y="199" fill="#ffffff" font-size="7.5" font-family="monospace">Copywritings</text>
+        <text x="128" y="210" fill="#8e96a3" font-size="6.5" font-family="monospace">RSA Guidelines</text>
+        <rect x="198" y="175" width="36" height="10" rx="0" ry="0" fill="#7c62ff" />
+        <text x="216" y="182" fill="#ffffff" font-size="5.5" font-family="monospace" font-weight="bold" text-anchor="middle">COPY</text>
+      </g>
+
+      <!-- Box 5: Market Sophistication -->
+      <g class="node-group">
+        <rect class="dbt-node" x="260" y="180" width="145" height="44" />
+        <rect class="dbt-node-icon" x="266" y="188" width="22" height="22" />
+        <g transform="translate(277, 199)"><text fill="#7c62ff" font-size="7" font-family="monospace" font-weight="bold" text-anchor="middle" y="2">FWK</text></g>
+        <text x="293" y="199" fill="#ffffff" font-size="7.5" font-family="monospace">Market Soph.</text>
+        <text x="293" y="210" fill="#8e96a3" font-size="6.5" font-family="monospace">Eugene Schwartz</text>
+        <rect x="363" y="175" width="36" height="10" rx="0" ry="0" fill="#7c62ff" />
+        <text x="381" y="182" fill="#ffffff" font-size="5.5" font-family="monospace" font-weight="bold" text-anchor="middle">MKT</text>
+      </g>
+
+
+      <!-- ==================== TIER 3: COMPLIANCE REVIEW CORE (MITTE-UNTEN) ==================== -->
+      
+      <!-- Compliance Review Core (No Logo Version) -->
+      <g class="node-group">
+        <rect class="dbt-node" x="150" y="285" width="200" height="52" />
+        <rect class="dbt-node-icon" x="158" y="296" width="30" height="30" />
+        <g transform="translate(168, 311)"><text fill="#8e96a3" font-size="8" font-family="monospace" font-weight="bold" text-anchor="middle" y="3">MDL</text></g>
+        <text x="194" y="309" fill="#ffffff" font-size="8" font-family="monospace">Compliance Review Core</text>
+        <text x="194" y="322" fill="#8e96a3" font-size="6.5" font-family="monospace">AI Sanitization &amp; Limits</text>
+        
+        <rect x="290" y="279" width="50" height="12" rx="0" ry="0" fill="#34d399" />
+        <text x="315" y="287" fill="#ffffff" font-size="6.5" font-family="monospace" font-weight="bold" text-anchor="middle">SANITIZE</text>
+      </g>
+
+
+      <!-- ==================== TIER 4: MUTATED AD UPLOADER (UNTEN) ==================== -->
+      
+      <!-- Mutated Ad Uploader -->
+      <g class="node-group">
+        <rect class="dbt-node" x="150" y="410" width="200" height="52" />
+        <rect class="dbt-node-icon" x="158" y="421" width="30" height="30" />
+        <g transform="translate(168, 436)"><text fill="#8e96a3" font-size="8" font-family="monospace" font-weight="bold" text-anchor="middle" y="3">TBL</text></g>
+        <text x="194" y="434" fill="#ffffff" font-size="8" font-family="monospace">Mutated Ad Uploader</text>
+        <text x="194" y="447" fill="#8e96a3" font-size="6.5" font-family="monospace">Direct Google Ads Push</text>
+        
+        <rect x="290" y="404" width="50" height="12" rx="0" ry="0" fill="#60a5fa" />
+        <text x="315" y="412" fill="#ffffff" font-size="6.5" font-family="monospace" font-weight="bold" text-anchor="middle">PAUSED</text>
+      </g>
+      
+    </svg>

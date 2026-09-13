@@ -21,6 +21,12 @@ The ad optimization workflow is divided into four distinct agents to isolate tas
 3. **Quality & Compliance Review Agent**: Reviews ad copy against character limits (30 chars for headlines, 90 chars for descriptions), normalizes marketing tone, removes restricted terms (`ROI`, `Boost`, `Sofort`, `Jetzt`, `Bewiesen`), and applies programmatic compliance sanitization.
 4. **Formatting & Upload Agent**: Formats the sanitized copy into Google Ads mutation payloads and uploads the new alternative as a `PAUSED` ad or asset group using `UploadAdsSkill`.
 
+<p align="center">
+  <img src="docs/images/system-circuit.svg" alt="AI Ads Pipeline System Circuit" width="560">
+  <br>
+  <em>System Circuit Architecture — <a href="docs/system-circuit.html">View interactive standalone widget</a></em>
+</p>
+
 ```
 [Orchestrator] -> (Fetch Ads) -> [Copywriter] -> (Scrape & Write) -> [Reviewer] -> (Clean & Sanitize) -> [Uploader] -> (Mutate PAUSED)
 ```
@@ -87,7 +93,24 @@ npm link
 
 ## CLI Usage
 
-Run any of the following commands:
+Alle Befehle werden innerhalb der Google Antigravity CLI (`agy`) ausgeführt:
+
+| Befehl | Argumente / Optionen | Kurzbeschreibung |
+| :--- | :--- | :--- |
+| `ai-ads-pipeline run-workflow` | `-f, --framework <name>` | Startet den 4-Agenten RSA-Workflow: Aktive Ads abrufen, 15 Headlines & 4 Descriptions schreiben, auf Richtlinien prüfen und als `PAUSED` Ad hochladen. |
+| `ai-ads-pipeline run-pmax` | `-f, --framework <name>` | Startet den Performance Max Asset Group Workflow: 15 Headlines, 4 Long Headlines, 4 Descriptions erzeugen und als pausierte Asset Group anlegen. |
+| `ai-ads-pipeline preproduce` | `-t, --theme <topic>`<br>`-k, --track <rsa\|pmax>`<br>`-c, --count <num>`<br>`-u, --url <url>`<br>`--no-swarm` | Vorproduktion von bis zu 400 Ad-Alternativen basierend auf 40 psychologischen Blickwinkeln, 6D-Vektorisierung, 20-Agenten Schwarmtest & 30-Tage ETS-Forecast. |
+| `ai-ads-pipeline swarm-test` | `-k, --track <rsa\|pmax>` | Standalone Persona Swarm Test auf Ad-Creatives mit 20 dynamischen englischsprachigen Zielgruppen-Personas (inkl. CTR-, CPC-, CPM- und CPL-Prognose). |
+| `ai-ads-pipeline framework` | `[angles\|audiences\|business\|copywritings\|sophistication\|none]` | Wählt interaktiv oder direkt das Standard-Psychologie-Framework für alle zukünftigen Texterstellungs-Workflows aus. |
+| `ai-ads-pipeline keywords` | Keine | Interaktive Keyword-Recherche über die Google Ads Keyword Planner API inklusive Intent-Clustering (ToFu, MoFu, High-Intent) und iterativer Verfeinerung. |
+| `ai-ads-pipeline skills` | Keine | Startet einen interaktiven Strategie-Chat basierend auf hinterlegten Google Ads Standard Operating Procedures (SOPs). |
+| `ai-ads-pipeline chat` | `[agentName]` | Startet eine Multi-Turn-Chat-Session mit einem spezifischen Agenten (`orchestrator`, `copywriter`, `reviewer`, `uploader`). |
+| `ai-ads-pipeline dashboard` | `-p, --port <number>` | Startet das lokale Web-Dashboard zur visuellen Überwachung von Systemmetriken, Runs und Agentenstatus. |
+| `ai-ads-pipeline setup` | Keine | Interaktiver Einrichtungsassistent für Gemini API Key, Google Ads OAuth2 (Port 8085) und Standard-Kampagneneinstellungen. |
+| `ai-ads-pipeline refresh-token` | Keine | Erneuert sofort das Google Ads API OAuth2 Access-Token. |
+| `ai-ads-pipeline agent list` | Keine | Listet alle persistent gespeicherten KI-Agenten und deren Aufgabenbereiche auf. |
+
+### Detaillierte Befehlsbeschreibungen:
 
 * **Start the RSA Workflow**: Coordinates all 4 agents to fetch, write, sanitize, and upload paused RSA alternatives:
   ```bash
