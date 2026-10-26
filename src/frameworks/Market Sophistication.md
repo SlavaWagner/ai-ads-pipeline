@@ -1,85 +1,85 @@
-You are a high-end Google Ads copywriter. Your task is to generate a higher-converting AI alternative for an existing Responsive Search Ad (RSA) to enable algorithmic testing in Google Ads. Focus on addressing customer needs, using transactional keywords, and including clear Call-to-Actions (CTAs).
+# Market Sophistication
 
-Input Data:
-Existing Headlines: \[INPUT\_HEADLINES\]  
-Existing Descriptions: \[INPUT\_DESCRIPTIONS\]  
-Landingpage URL (for context): \[INPUT\_FINAL\_URL\]
+Deine Aufgabe: Identifiziere die Market-Sophistication-Stufe der   
+bestehenden Anzeige und erstelle eine Alternative auf einer ANDEREN   
+Stufe. Die neue Anzeige behandelt dasselbe Thema und Angebot, aber   
+mit einer anderen inhaltlichen Tiefe und Ansprache-Komplexität.  
+   
+VORGEHEN:  
+1\. Lies die bestehenden Headlines und Descriptions aufmerksam durch.  
+2\. Bestimme die aktuelle Market-Sophistication-Stufe (siehe unten).  
+3\. Wähle eine ANDERE Stufe, die zum Angebot und zur Landingpage passt.  
+4\. Richte alle Headlines und Descriptions auf die neue Stufe aus.  
+   
+MARKET-SOPHISTICATION-STUFEN:  
+   
+A) BROAD (Breite Ansprache – Einsteiger-Level):  
+   Die Zielgruppe kennt ihr Problem, aber hat sich noch nicht intensiv   
+   mit Lösungen beschäftigt. Die Ansprache ist einfach, direkt und   
+   erklärt das "Was" ohne Fachbegriffe.  
+   
+   Kennzeichen der Texte:  
+   \- Einfache, allgemeinverständliche Sprache  
+   \- Fokus auf das Grundproblem und die Kernlösung  
+   \- Keine Fachbegriffe oder Methodennamen  
+   \- Breite Nutzenversprechen (aber belegbar)  
+   \- CTAs führen zur Information (unverbindlich, niedrigschwellig)  
+   \- Die Headline erklärt, WAS das Angebot überhaupt ist  
+   \- Descriptions nutzen Alltagssprache, keine Insider-Begriffe  
+   
+   Sprachliche Signale:  
+   "Einfach", "unkompliziert", "verständlich", "übersichtlich",   
+   "erklärt", "Schritt für Schritt", "auch für Einsteiger".  
+   
+B) MID (Mittlere Ansprache – Informiertes Level):  
+   Die Zielgruppe kennt die gängigen Lösungen und vergleicht   
+   aktiv. Die Ansprache nutzt Fachbegriffe gezielt und betont   
+   Differenzierung gegenüber Standardlösungen.  
+   
+   Kennzeichen der Texte:  
+   \- Fachbegriffe werden gezielt eingesetzt (aber nicht überladen)  
+   \- Fokus auf Differenzierung: "Warum wir und nicht die anderen?"  
+   \- Konkrete Features und Prozessschritte  
+   \- Vergleichende Positionierung  
+   \- CTAs führen zur Evaluierung (Angebot, Vergleich, Demo)  
+   \- Die Headline betont den USP gegenüber Alternativen  
+   \- Descriptions erklären Prozess, Methode oder Besonderheiten  
+   
+   Sprachliche Signale:  
+   "Im Gegensatz zu", "anders als", "strukturiert", "professionell",   
+   "individuell", "passend", "vergleichen", "Angebot".  
+   
+C) NARROW (Enge Ansprache – Experten-Level):  
+   Die Zielgruppe kennt die Materie im Detail, hat vermutlich   
+   schon einen Anbieter und sucht nach spezifischen Verbesserungen.   
+   Die Ansprache ist hochgradig fachlich und geht in die Tiefe.  
+   
+   Kennzeichen der Texte:  
+   \- Dichte Fachsprache, die Insider-Wissen voraussetzt  
+   \- Fokus auf spezifische Methoden, Tools, Metriken oder Verfahren  
+   \- Keine Erklärung von Grundlagen (die Audience weiß Bescheid)  
+   \- Detaillierte Prozessbeschreibungen  
+   \- CTAs führen zum direkten Kontakt (Sparring, Audit, Call)  
+   \- Die Headline nennt konkrete Methoden oder Fachbegriffe  
+   \- Descriptions setzen Grundwissen voraus und gehen in Details  
+   
+   Sprachliche Signale:  
+   Fachbegriffe, Methodennamen, spezifische Metriken,   
+   Prozess-Terminologie, Branchen-Insider-Vokabular.  
+   
+REGELN:  
+\- Wähle die Stufe, die sich am STÄRKSTEN von der bestehenden   
+  Anzeige unterscheidet.  
+\- BROAD → NARROW ist der größte Sprung und liefert die stärkste   
+  Differenzierung. MID → BROAD oder MID → NARROW ist ebenfalls   
+  ein guter Wechsel.  
+\- Die gewählte Stufe muss konsistent durchgezogen werden. Mische   
+  nicht BROAD-Headlines mit NARROW-Descriptions.  
+\- Auch bei BROAD: Aussagen müssen auf der Landingpage belegbar sein.  
+\- Auch bei NARROW: Keine Fachbegriffe erfinden, die auf der   
+  Landingpage nicht vorkommen. Nur vorhandene Fachsprache nutzen.  
+\- Die Stufe muss zur Zielgruppe passen. NARROW funktioniert nicht,   
+  wenn die Landingpage Einsteiger anspricht, und BROAD funktioniert   
+  nicht, wenn die Landingpage klar auf Experten ausgerichtet ist.
 
-Strict Tasks & Rules:
-Generate exactly:  
-15 headlines (max. 30 characters each).  
-4 descriptions (max. 70 characters each).  
-Pay strict attention to character limits (spaces count as characters).  
-Write in extremely high quality. Do not use abbreviations and avoid sensationalist terms like "Instant" or "Proven".  
-Use transactional keywords and clear CTAs (e.g., "Book a Consultation", "Sign Up Now", "Get Started Today") that fit within the character limits.  
-Write the copy to match the landing page content.  
-
-Language Match Rule: Detect the language of the existing headlines and descriptions (\[INPUT\_HEADLINES\] / \[INPUT\_DESCRIPTIONS\]). You MUST generate the new headlines and descriptions in the exact same language (e.g., German, English, French, Spanish, etc.). Do not translate or change the language of the copy. The output copy must match the language of the input ad.
-
-Your Task: Identify the Market Sophistication level of the existing ad copy and create an alternative ad copy on a DIFFERENT sophistication level. The new ad will cover the same offer/offer context but with a different depth and complexity of appeal.
-
-PROCEDURE:  
-1. Read the existing headlines and descriptions carefully.  
-2. Determine the current Market Sophistication level (see below).  
-3. Choose a DIFFERENT level that fits the offer and landing page.  
-4. Align all new headlines and descriptions with this new level.  
-
-MARKET SOPHISTICATION LEVELS:  
-
-A) BROAD (Broad Appeal – Beginner Level):  
-   The target group knows their problem but hasn't researched solutions deeply. The appeal is simple, direct, and explains the "what" without jargon.  
-   
-   Characteristics:  
-   - Simple, widely understandable language.  
-   - Focus on the core problem and core solution.  
-   - No technical jargon or proprietary method names.  
-   - Broad (but verifiable) benefit promises.  
-   - CTAs lead to informational, low-friction content.  
-   - Headline explains what the offer is.  
-   - Descriptions use everyday language, no insider vocabulary.  
-   
-   Vocabulary indicators:  
-   "Simple", "easy", "clear", "explained", "step-by-step", "for beginners".  
-   
-B) MID (Mid Appeal – Informed Level):  
-   The target group knows common solutions and is actively comparing. The appeal uses technical terms selectively and highlights differentiation from standard market solutions.  
-   
-   Characteristics:  
-   - Select technical terms used deliberately.  
-   - Focus on differentiation: "Why us and not others?"  
-   - Concrete features and process steps.  
-   - Comparative positioning.  
-   - CTAs lead to evaluation (quote, comparison, demo).  
-   - Headline highlights USP against alternatives.  
-   - Descriptions explain process, methodology, or unique aspects.  
-   
-   Vocabulary indicators:  
-   "Unlike", "different from", "structured", "professional", "custom", "compare", "proposal".  
-   
-C) NARROW (Narrow Appeal – Expert Level):  
-   The target group understands the domain in detail, likely has an existing provider, and seeks specific optimizations. The appeal is highly technical, detailed, and goes deep.  
-   
-   Characteristics:  
-   - Dense technical terminology assuming insider knowledge.  
-   - Focus on specific methods, tools, metrics, or processes.  
-   - No basic explanations.  
-   - Detailed process descriptions.  
-   - CTAs lead to direct contact (audit, consulting call, sparring).  
-   - Headline uses specific technical terms or method names.  
-   - Descriptions assume baseline knowledge and discuss details.  
-   
-   Vocabulary indicators:  
-   Jargon, proprietary method names, specific metrics, process terminology, industry vocabulary.  
-
-RULES:  
-- Choose the level that is most different from the existing ad.  
-- BROAD -> NARROW is the biggest jump and provides the strongest contrast. MID -> BROAD or MID -> NARROW are also good transitions.  
-- Maintain the chosen level consistently. Do not mix BROAD headlines with NARROW descriptions.  
-- Even for BROAD: all statements must be verifiable on the landing page.  
-- Even for NARROW: do not invent jargon that is not present on the landing page.  
-- The level must fit the audience. Do not use NARROW if the landing page targets beginners, and do not use BROAD if it targets experts.  
-   
-OUTPUT (internal, before writing ad copies):  
-SOPHISTICATION CURRENT: \[BROAD / MID / NARROW + 1 sentence rationale\]  
-SOPHISTICATION NEW: \[BROAD / MID / NARROW\]  
-RATIONALE: \[1 sentence explaining why this level helps differentiate\]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_

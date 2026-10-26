@@ -17,7 +17,7 @@
 The package orchestrates autonomous persistent agents to handle end-to-end copywriting, rigorous compliance review, and direct mutate uploads via the Google Ads API.
 
 <p align="center">
-  <img src="docs/images/system-circuit.svg" alt="AI Ads Pipeline System Circuit" width="100%">
+  <img src="docs/images/system-circuit.png" alt="AI Ads Pipeline System Circuit" width="100%">
   <br>
   <em>System Circuit Architecture — <a href="docs/system-circuit.html">View interactive standalone widget</a></em>
 </p>
@@ -60,19 +60,18 @@ Derived directly from advanced Make.com templates (`Module 309`, `Module 324`, `
 
 ---
 
-## 4. Strategic Frameworks Suite (`frameworks/`)
+## 4. Strategic Frameworks Suite (`src/frameworks/`)
 
-The repository includes a comprehensive library of **over 100 Make.com blueprints and framework definitions** under [`frameworks/`](frameworks/):
+The repository includes a comprehensive, modular library of individual framework files under [`src/frameworks/`](src/frameworks/), each structured as an isolated, standalone strategy file:
 
-### A. Slava Wagner Automations Frameworks ([`frameworks/slava-wagner-automations/`](frameworks/slava-wagner-automations/))
-50 full-scale Make blueprints (25 RSA, 25 PMax) plus [`SWA Alle meine Frameworks.md`](frameworks/slava-wagner-automations/SWA%20Alle%20meine%20Frameworks.md):
-- **Core Marketing**: 4P Marketing Mix, 7P Service Marketing, AIDA, PAS, FAB
-- **Business Strategy**: SWOT Analysis, Business Model Canvas, Value Proposition Canvas, Three Horizons Framework, Ten Types of Innovation, Core Competence Analysis, Value Chain Analysis
-- **Psychology & Personas**: Empathy Map, Customer Journey Mapping, Lifecycles, Market Sophistication
+### A. Slava Wagner Automations Frameworks
+- **Core Marketing**: [`4P Marketing Mix.md`](src/frameworks/4P%20Marketing%20Mix.md), [`7P Marketing.md`](src/frameworks/7P%20Marketing.md), [`AIDA.md`](src/frameworks/AIDA.md), [`PAS.md`](src/frameworks/PAS.md), [`Copywritings.md`](src/frameworks/Copywritings.md), [`Angles.md`](src/frameworks/Angles.md)
+- **Business Strategy**: [`SWOT-Analyse.md`](src/frameworks/SWOT-Analyse.md), [`Business Model Canvas.md`](src/frameworks/Business%20Model%20Canvas.md), [`Value Proposition Canvas.md`](src/frameworks/Value%20Proposition%20Canvas.md), [`Three Horizons Framework.md`](src/frameworks/Three%20Horizons%20Framework.md), [`Ten Types of Innovation.md`](src/frameworks/Ten%20Types%20of%20Innovation.md), [`Core Competence Analysis.md`](src/frameworks/Core%20Competence%20Analysis.md), [`Value Chain Analysis.md`](src/frameworks/Value%20Chain%20Analysis.md)
+- **Psychology & Personas**: [`Empathy Map.md`](src/frameworks/Empathy%20Map.md), [`Customer Journey Mapping.md`](src/frameworks/Customer%20Journey%20Mapping.md), [`Customer Persona Template.md`](src/frameworks/Customer%20Persona%20Template.md), [`Lifecycles.md`](src/frameworks/Lifecycles.md), [`Market Sophistication.md`](src/frameworks/Market%20Sophistication.md), [`Growth Hacking Funnel.md`](src/frameworks/Growth%20Hacking%20Funnel.md), [`Conversion Funnel Analysis.md`](src/frameworks/Conversion%20Funnel%20Analysis.md), [`Hook Model.md`](src/frameworks/Hook%20Model.md)
 
-### B. 50 Hook Pipelines ([`frameworks/50-hook-pipelines/`](frameworks/50-hook-pipelines/))
-50 specialized blueprints (25 RSA, 25 PMax) testing high-interrupt hooks:
-- *Authority Hooks*, *Proof Hooks*, *Urgency Hooks*, *Curiosity Hooks*, *Contrarian Hooks*, *Status Hooks*, *Mechanism Hooks*, *Story Hooks*, and *Myth-Buster Hooks*.
+### B. High-Conversion Hook Frameworks (25 Dedicated Hooks)
+Individual, specialized hook definitions testing high-interrupt creative patterns:
+- *Autoritäts-Hook*, *Beweis-Hook*, *Demonstrations-Hook*, *Dringlichkeits-Hook*, *Einzigartigkeits-Hook*, *Fehler-Hook*, *Geheimnis-Hook*, *Identitäts-Hook*, *Insider-Hook*, *Kontrarian-Hook*, *Mechanismus-Hook*, *Mythen-Hook*, *Neugier-Hook*, *Problem-Hook*, *Schmerz-Hook*, *Social-Proof-Hook*, *Spezifitäts-Hook*, *Status-Hook*, *Story-Hook*, *Vergleichs-Hook*, *Vorteils-Hook*, *Warnungs-Hook*, *Wunsch-Traum-Hook*, *Zugehörigkeits-Hook*, *Überraschungs-Hook*.
 
 ---
 

@@ -1,63 +1,92 @@
-You are a high-end Google Ads copywriter. Your task is to generate a higher-converting AI alternative for an existing Responsive Search Ad (RSA) to enable algorithmic testing in Google Ads. Focus on addressing customer needs, using transactional keywords, and including clear Call-to-Actions (CTAs).
+# Copywritings
 
-Input Data:
-Existing Headlines: \[INPUT\_HEADLINES\]  
-Existing Descriptions: \[INPUT\_DESCRIPTIONS\]  
-Landingpage URL (for context): \[INPUT\_FINAL\_URL\]
-
-Strict Tasks & Rules:
-Generate exactly:  
-15 headlines (max. 30 characters each).  
-4 descriptions (max. 70 characters each).  
-Pay strict attention to character limits (spaces count as characters).  
-Write in extremely high quality. Do not use abbreviations and avoid sensationalist terms like "Instant" or "Proven".  
-Use transactional keywords and clear CTAs (e.g., "Book a Consultation", "Sign Up Now", "Get Started Today") that fit within the character limits.  
-Write the copy to match the landing page content.  
-
-Language Match Rule: Detect the language of the existing headlines and descriptions (\[INPUT\_HEADLINES\] / \[INPUT\_DESCRIPTIONS\]). You MUST generate the new headlines and descriptions in the exact same language (e.g., German, English, French, Spanish, etc.). Do not translate or change the language of the copy. The output copy must match the language of the input ad.
-
-Your Task: Identify a new copywriting hook type that is NOT yet dominantly used in the existing ad copy. Create an alternative ad copy for the same product/offer but with a different copywriting hook as the primary angle.
-
-PROCEDURE:  
-1. Read the existing headlines and descriptions carefully.  
-2. Identify the dominant hook type of the existing ad (see list below).  
-3. Choose a DIFFERENT hook type that fits the product and landing page.  
-4. Align all new headlines and descriptions with the new hook type.  
-
-AVAILABLE COPYWRITING HOOK TYPES:  
-
-A) BENEFIT Hook:  
-   The headline communicates the direct benefit or outcome for the reader. The benefit must be concrete and verifiable – no vague promises, no superlatives without proof.  
-     
-   Finding prompt: "What exactly does the target group get out of this?"  
-   Style: Output-oriented, numbers-driven (if supported).  
+Deine Aufgabe: Identifiziere einen neuen Copywriting-Hook-Typ, der in   
+den bestehenden Anzeigentexten noch NICHT dominant eingesetzt wird.   
+Erstelle eine Anzeigenalternative zum selben Thema und Angebot, aber   
+mit einem anderen Copywriting-Hook als Hauptansprache.  
    
-B) PROOF Hook:  
-   The headline uses data, facts, references, qualifications, or certificates to build trust. Every proof point must be verifiable.  
-     
-   Finding prompt: "What evidence can I present to show that the offer works?"  
-   Style: Statistics, timelines, qualifications, certifications, references, awards, media mentions.  
+VORGEHEN:  
+1\. Lies die bestehenden Headlines und Descriptions aufmerksam durch.  
+2\. Identifiziere den dominanten Hook-Typ der bestehenden Anzeige   
+   (siehe Liste unten).  
+3\. Wähle einen ANDEREN Hook-Typ, der zum Angebot und zur Landingpage   
+   passt.  
+4\. Richte alle Headlines und Descriptions auf den neuen Hook-Typ aus.  
    
-C) CURIOSITY Hook:  
-   The headline sparks interest through an open question, surprising framing, or information gap – WITHOUT being sensationalist or clickbaity.  
-     
-   Finding prompt: "What question keeps the target group awake at night that this offer answers?"  
-   Style: Open questions, unexpected angles, "What many don't know", puzzle elements with real value.  
+VERFÜGBARE COPYWRITING-HOOK-TYPEN:  
    
-D) URGENCY Hook:  
-   The headline creates temporal relevance – WITHOUT fake urgency, WITHOUT "Immediately", WITHOUT "Today only", WITHOUT artificial countdowns. Real urgency arises from context: seasonality, competitive pressure, opportunity costs, limited availability, real deadlines.  
+A) VORTEIL (Benefit Hook):  
+   Die Headline kommuniziert den direkten Nutzen für den Leser.   
+   Der Vorteil muss konkret und belegbar sein – keine vagen   
+   Versprechen, keine Superlative ohne Beleg.  
      
-   Finding prompt: "Why is it worth acting NOW rather than in three months?"  
-   Style: Seasonal events, approaching dates, limited capacity, opportunity cost of waiting.  
+   Fragetechnik zum Finden: "Was hat die Zielgruppe konkret davon?"  
+   Typische Formulierungen: Ergebnis-orientiert, zahlengestützt   
+   (wenn belegt), mit klarem Output für den Nutzer.  
    
-E) UNIQUENESS Hook:  
-   The headline highlights what differentiates this offer from all others – a concrete, verifiable differentiator.  
+B) BEWEIS (Proof Hook):  
+   Die Headline nutzt Zahlen, Fakten, Referenzen, Qualifikationen   
+   oder Zertifikate als Vertrauensbeweis. Jeder Beweis muss   
+   überprüfbar sein.  
      
-   Finding prompt: "What is the one thing this offer does that no competitor offers?"  
-   Style: USPs, exclusive features, proprietary methods/approaches, clear market distinction.  
+   Fragetechnik zum Finden: "Womit kann ich belegen, dass das   
+   Angebot funktioniert?"  
+   Typische Formulierungen: Zahlen, Zeiträume, Qualifikationen,   
+   Zertifizierungen, Referenzen, Awards, Presseerwähnungen.  
    
-F) PARADOX Hook:  
-   The headline uses an apparent contradiction to capture attention and provoke thought. The contradiction is resolved by the offer.  
+C) NEUGIER (Curiosity Hook):  
+   Die Headline weckt Interesse durch eine offene Frage, ein   
+   überraschendes Framing oder eine Informationslücke – OHNE   
+   reißerisch oder clickbaity zu werden.  
      
-   Finding prompt: "What intuitive assumption of the target group does this offer disprove?"  
-   Style: "Less X means more Y", "Slower to the goal", "More effort saves time", reversing common assumptions.
+   Fragetechnik zum Finden: "Welche Frage beschäftigt die Zielgruppe,   
+   auf die das Angebot eine Antwort gibt?"  
+   Typische Formulierungen: Offene Fragen, unerwartete Perspektiven,   
+   "Was viele nicht wissen", Rätsel-Elemente mit echtem Mehrwert.  
+   
+D) DRINGLICHKEIT (Urgency Hook):  
+   Die Headline erzeugt zeitliche Relevanz – OHNE Fake-Urgency,   
+   OHNE "Sofort", OHNE "Nur noch heute", OHNE künstliche Countdowns.   
+   Echte Dringlichkeit entsteht aus dem Kontext: Saisonalität,   
+   Wettbewerbsdruck, Opportunitätskosten, zeitlich begrenzte   
+   Verfügbarkeit, reale Deadlines.  
+     
+   Fragetechnik zum Finden: "Warum lohnt es sich, JETZT zu handeln   
+   statt in drei Monaten?"  
+   Typische Formulierungen: Saisonale Anlässe, nahende Termine,   
+   begrenzte Kapazitäten, Opportunitätskosten des Wartens.  
+   
+E) EINZIGARTIGKEIT (Uniqueness Hook):  
+   Die Headline betont, was das Angebot von allen anderen   
+   unterscheidet – ein konkretes, überprüfbares   
+   Differenzierungsmerkmal.  
+     
+   Fragetechnik zum Finden: "Was kann nur dieses Angebot, das   
+   kein Wettbewerber bietet?"  
+   Typische Formulierungen: Alleinstellungsmerkmale, exklusive   
+   Features, eigene Methoden, proprietäre Ansätze, Abgrenzung   
+   vom Standardmarkt.  
+   
+F) PARADOXIE (Paradox Hook):  
+   Die Headline nutzt einen scheinbaren Widerspruch, um   
+   Aufmerksamkeit zu erzeugen und zum Nachdenken anzuregen.   
+   Der Widerspruch löst sich durch das Angebot auf.  
+     
+   Fragetechnik zum Finden: "Welche intuitive Annahme der Zielgruppe   
+   wird durch das Angebot widerlegt?"  
+   Typische Formulierungen: "Weniger X heißt mehr Y",   
+   "Langsamer zum Ziel", "Mehr Aufwand spart Zeit", Umkehrung   
+   gängiger Annahmen.  
+   
+REGELN:  
+\- Wähle den Hook-Typ, der sich am STÄRKSTEN vom bestehenden   
+  dominanten Hook unterscheidet.  
+\- Alle Headlines und Descriptions sollen den gewählten Hook-Typ   
+  konsistent durchziehen. Mische nicht mehrere Hooks.  
+\- Auch beim Neugier- und Paradox-Hook: Alle Aussagen müssen   
+  auf der Landingpage belegbar sein.  
+\- Dringlichkeit darf NICHT durch verbotene Wörter ("Sofort",   
+  "Garantiert") erzeugt werden, sondern durch kontextuelle Relevanz.  
+\- Beweis-Hooks dürfen keine Zahlen erfinden. Wenn auf der   
+  Landingpage keine konkreten Zahlen stehen, wähle einen anderen   
+  Hook-Typ.
