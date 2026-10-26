@@ -1,64 +1,89 @@
 # ai-ads-pipeline: Persistent AI Agents for Google Ads Optimization
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![AI Framework: Antigravity](https://img.shields.io/badge/AI_Framework-Antigravity_CLI-blue.svg)](https://github.com/SlavaWagner)
+[![Node.js Version](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
+
 `ai-ads-pipeline` is a persistent AI agent framework designed to automatically generate, optimize, and upload compliant, high-performing Responsive Search Ad (RSA) and Performance Max (PMax) alternatives to Google Ads. It uses a structured multi-agent workflow powered by Gemini and the Google Ads API.
 
 > [!IMPORTANT]
-> **Prerequisite for AI Processing:**
-> Please start Google Antigravity beforehand using the command **`agy`** in your console!
-> Interactive chat sessions, asset generation workflows, and AI processing run exclusively **INSIDE the Antigravity CLI**. In a standard terminal shell outside Antigravity, no AI processing takes place, and static execution outputs are intercepted with a guidance notice.
+> **Prerequisite for AI Processing:**  
+> Please launch Google Antigravity beforehand using the command **`agy`** in your console. Interactive chat sessions, asset generation workflows, and AI agent processing run natively inside the Antigravity CLI.
 
 ---
 
-## Architecture & Agents
+## 1. System Architecture & Circuit
 
-This package contains two main workflows: a Multi-Agent Optimization Pipeline for generating responsive search ads and PMax asset groups, and an interactive Keyword Planner Chat Agent.
-
-### 1. The 4-Agent Ad Optimization Pipeline
-The ad optimization workflow is divided into four distinct agents to isolate tasks, enforce compliance, and control token usage:
-
-1. **Orchestrator & Data Fetcher Agent**: Connects to the Google Ads API using `FetchAdsSkill` to download active ads and campaign baseline metrics, coordinates data transfer between agents, and manages execution limits.
-2. **Creative Copywriter Agent**: Scrapes landing page content using `LandingPageScrapeSkill` and prompts Gemini to identify customer pain points and solution frames (Angles), generating 15 headlines and 4 descriptions.
-3. **Quality & Compliance Review Agent**: Reviews ad copy against character limits (30 chars for headlines, 90 chars for descriptions), normalizes marketing tone, removes restricted terms (`ROI`, `Boost`, `Sofort`, `Jetzt`, `Bewiesen`), and applies programmatic compliance sanitization.
-4. **Formatting & Upload Agent**: Formats the sanitized copy into Google Ads mutation payloads and uploads the new alternative as a `PAUSED` ad or asset group using `UploadAdsSkill`.
+The package orchestrates autonomous persistent agents to handle end-to-end copywriting, rigorous compliance review, and direct mutate uploads via the Google Ads API.
 
 <p align="center">
-  <img src="docs/images/system-circuit.svg" alt="AI Ads Pipeline System Circuit" width="560">
+  <img src="docs/images/system-circuit.svg" alt="AI Ads Pipeline System Circuit" width="100%">
   <br>
   <em>System Circuit Architecture — <a href="docs/system-circuit.html">View interactive standalone widget</a></em>
 </p>
 
 ```
-[Orchestrator] -> (Fetch Ads) -> [Copywriter] -> (Scrape & Write) -> [Reviewer] -> (Clean & Sanitize) -> [Uploader] -> (Mutate PAUSED)
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│ 1. Orchestrator │ ───►  │ 2. Copywriter   │ ───►  │ 3. Review Agent │ ───►  │ 4. Upload Engine│
+│ (Fetch Live Ads)│       │ (Angle & Spine) │       │ (Sanitize & QA) │       │ (Mutate PAUSED) │
+└─────────────────┘       └─────────────────┘       └─────────────────┘       └─────────────────┘
 ```
-
-### 2. Google Ads Keyword Planner Chat Agent
-An interactive assistant that lets you query real keyword ideas and historical metrics (search volume, competition, top-of-page bids) directly from the Google Ads API, clusters them by search intent (High-Intent, MoFu, ToFu) with up to 25 keywords per cluster, and maintains an interactive feedback loop to refine the selection.
 
 ---
 
-## Installation & Setup
+## 2. The Multi-Agent Pipeline
 
-### 0. Google Cloud Prerequisites
-Before configuring the pipeline, you need a Google Cloud project with the **Google Ads API** enabled and OAuth2 credentials configured:
-1. Enable the **Google Ads API** in your Google Cloud Console.
-2. Configure the **OAuth Consent Screen**:
-   - Add the scope: `https://www.googleapis.com/auth/adwords`.
-   - Add your email as a **Test User** (if your publishing status is "Testing").
-3. Create an **OAuth Client ID** (Application type: `Web application`):
-   - Set the **Authorized redirect URIs** to: `http://localhost:8085`
-   - Copy the generated **Client ID** and **Client Secret** (required for step 4).
+1. **Orchestrator Agent (`orchestrator`)**:
+   - Queries Google Ads SearchStream API v24 to download active campaigns, ad groups, and baseline copy assets.
+   - Evaluates ad candidates against swarm feedback, enforces strict landing page grounding, and filters out unrealistic tester demands.
+2. **Creative Copywriter Agent (`copywriter`)**:
+   - Scrapes target landing page content in real-time.
+   - Injects tested strategic frameworks (`PAS`, `AIDA`, `SWOT`, `4P`, `Hook Models`, etc.).
+   - Produces 15 headlines and 4 descriptions per group with tight story spines.
+3. **Quality & Review Agent (`reviewer`)**:
+   - Hard character limit enforcement (Headlines: max 30 chars, Long Headlines / Descriptions: max 90 chars).
+   - Removes trailing periods, exclamation marks, and restricted buzzwords (*"ROI"*, *"Boost"*, *"Sofort"*, *"Jetzt"*, *"Bewiesen"*).
+4. **API Upload Engine (`uploader`)**:
+   - Constructs single-batch mutate operations for Google Ads API.
+   - Uploads compiled text assets and creates new RSAs or PMax Asset Groups in **`PAUSED`** status for safe verification.
 
-For a detailed step-by-step walkthrough, see [SETUP_GUIDE.md](SETUP_GUIDE.md).
+---
+
+## 3. Mass Pre-Production & Agent Swarm Module
+
+Derived directly from advanced Make.com templates (`Module 309`, `Module 324`, `Module 321`), the pipeline includes an enterprise-grade pre-production engine:
+
+- **Up to 400 Cardinal AI Ad Alternatives**: Generates 40 unique, non-repeating angles × 10 variations prior to ad launch.
+- **Strict Landing Page Grounding**: The engine enforces strict alignment with verifiable USPs from the landing page. No invented features, no artificial guarantees.
+- **Predictive Swarm Evaluation**: Simulates target customer sub-audiences to compute approval ratings alongside projected **CTR (%)**, **CPC (€)**, **CPM (€)**, and **CPL (€)**.
+- **Holt-Winters ETS Forecasting**: Combines 30-day historical Google Ads account metrics with Swarm Winner uplift to forecast 30-day performance bounds.
+
+---
+
+## 4. Strategic Frameworks Suite (`frameworks/`)
+
+The repository includes a comprehensive library of **over 100 Make.com blueprints and framework definitions** under [`frameworks/`](frameworks/):
+
+### A. Slava Wagner Automations Frameworks ([`frameworks/slava-wagner-automations/`](frameworks/slava-wagner-automations/))
+50 full-scale Make blueprints (25 RSA, 25 PMax) plus [`SWA Alle meine Frameworks.md`](frameworks/slava-wagner-automations/SWA%20Alle%20meine%20Frameworks.md):
+- **Core Marketing**: 4P Marketing Mix, 7P Service Marketing, AIDA, PAS, FAB
+- **Business Strategy**: SWOT Analysis, Business Model Canvas, Value Proposition Canvas, Three Horizons Framework, Ten Types of Innovation, Core Competence Analysis, Value Chain Analysis
+- **Psychology & Personas**: Empathy Map, Customer Journey Mapping, Lifecycles, Market Sophistication
+
+### B. 50 Hook Pipelines ([`frameworks/50-hook-pipelines/`](frameworks/50-hook-pipelines/))
+50 specialized blueprints (25 RSA, 25 PMax) testing high-interrupt hooks:
+- *Authority Hooks*, *Proof Hooks*, *Urgency Hooks*, *Curiosity Hooks*, *Contrarian Hooks*, *Status Hooks*, *Mechanism Hooks*, *Story Hooks*, and *Myth-Buster Hooks*.
+
+---
+
+## 5. Installation & Setup
 
 ### 1. Install Antigravity CLI
-This AI Agent package runs inside the **Antigravity CLI**. Install it globally on your system:
 ```bash
 npm install -g @google/antigravity-cli
 ```
-*(Note: While the host environment uses the `agy` command globally, the commands for this specific SEA Ads Pipeline package are run using `ai-ads-pipeline`)*.
 
 ### 2. Clone Repository & Install Dependencies
-Clone this repository to your local machine and install dependencies:
 ```bash
 git clone https://github.com/SlavaWagner/ai-ads-pipeline.git
 cd ai-ads-pipeline
@@ -66,145 +91,63 @@ npm install
 ```
 
 ### 3. Configure Credentials
-Create your configuration file from the template:
 ```bash
 cp config.example.json config.json
 ```
-Edit `config.json` and enter your Google Ads API credentials:
-- `customerId`: Your 10-digit Google Ads customer ID.
-- `developerToken`: Your Google Ads developer token.
-- `clientId`: Your Google Cloud OAuth2 Client ID.
-- `clientSecret`: Your Google Cloud OAuth2 Client Secret.
+Edit `config.json` with your Google Ads API & Gemini credentials:
+- `customerId`: 10-digit Google Ads customer ID.
+- `developerToken`: Google Ads developer token.
+- `clientId`: Google Cloud OAuth2 Client ID.
+- `clientSecret`: Google Cloud OAuth2 Client Secret.
 
 ### 4. Authorize Google Ads
-Run the interactive setup tool to authenticate your client via OAuth2:
 ```bash
 ai-ads-pipeline setup
 ```
-This starts a local redirect server on port `8085` and displays an authorization link in the terminal. Open the link in your web browser, grant the required permissions, and the CLI will store your tokens.
+Starts a local redirect server on port `8085` to securely complete the OAuth2 flow.
 
-### 5. Link CLI Globally (Optional)
-To make the command globally available on your machine:
+---
+
+## 6. CLI Command Reference
+
+All commands run inside Google Antigravity CLI (`agy`):
+
+| Command | Description |
+| :--- | :--- |
+| `ai-ads-pipeline run-workflow` | Runs the 4-agent RSA workflow: fetches active ads, writes 15 headlines & 4 descriptions, reviews compliance, and uploads as `PAUSED` ad. |
+| `ai-ads-pipeline run-pmax` | Runs the Performance Max workflow: creates 15 headlines, 4 long headlines, 4 descriptions, and creates a paused asset group. |
+| `ai-ads-pipeline preproduce` | Mass pre-production of up to 400 ad alternatives based on 40 angles, 6-D vectorization, Swarm testing & 30-day ETS forecast. |
+| `ai-ads-pipeline swarm-test` | Standalone Persona Swarm test on existing creatives to project CTR, CPC, CPM, and CPL metrics. |
+| `ai-ads-pipeline framework` | Interactively selects the active copywriting framework for asset creation. |
+| `ai-ads-pipeline keywords` | Interactive keyword research using the Google Ads Keyword Planner API with intent clustering (ToFu, MoFu, High-Intent). |
+| `ai-ads-pipeline skills` | Launches an interactive strategy chat based on Google Ads Standard Operating Procedures (SOPs). |
+| `ai-ads-pipeline chat` | Starts a multi-turn chat session with a specific persistent agent (`orchestrator`, `copywriter`, `reviewer`, `uploader`). |
+| `ai-ads-pipeline setup` | Interactive assistant for Gemini API Key, Google Ads OAuth2 (port 8085), and default settings. |
+| `ai-ads-pipeline refresh-token`| Immediately refreshes the Google Ads API OAuth2 access token. |
+| `ai-ads-pipeline agent list` | Lists all registered persistent agents and their system prompt configurations. |
+
+### Example CLI Workflows:
+
 ```bash
-npm link
+# 1. Run standard RSA workflow with PAS framework:
+ai-ads-pipeline run-workflow --framework pas
+
+# 2. Pre-produce 400 alternatives with Landing Page Grounding:
+ai-ads-pipeline preproduce -t "Real Estate Valuation" -k rsa -c 400 -u "https://www.slavawagner.de"
+
+# 3. Create Performance Max alternatives:
+ai-ads-pipeline run-pmax --framework angles
+
+# 4. Interactive Keyword Planner research:
+ai-ads-pipeline keywords
 ```
 
 ---
 
-## CLI Usage
+## License
 
-Alle Befehle werden innerhalb der Google Antigravity CLI (`agy`) ausgeführt:
-
-| Befehl | Kurzbeschreibung |
-| :--- | :--- |
-| `ai-ads-pipeline run-workflow` | Startet den 4-Agenten RSA-Workflow: Aktive Ads abrufen, 15 Headlines & 4 Descriptions schreiben, auf Richtlinien prüfen und als `PAUSED` Ad hochladen. |
-| `ai-ads-pipeline run-pmax` | Startet den Performance Max Asset Group Workflow: 15 Headlines, 4 Long Headlines, 4 Descriptions erzeugen und als pausierte Asset Group anlegen. |
-| `ai-ads-pipeline preproduce` | Vorproduktion von bis zu 400 Ad-Alternativen basierend auf 40 psychologischen Blickwinkeln, 6D-Vektorisierung, 20-Agenten Schwarmtest & 30-Tage ETS-Forecast. |
-| `ai-ads-pipeline swarm-test` | Standalone Persona Swarm Test auf Ad-Creatives mit 20 dynamischen englischsprachigen Zielgruppen-Personas (inkl. CTR-, CPC-, CPM- und CPL-Prognose). |
-| `ai-ads-pipeline framework` | Wählt interaktiv oder direkt das Standard-Psychologie-Framework für alle zukünftigen Texterstellungs-Workflows aus. |
-| `ai-ads-pipeline keywords` | Interaktive Keyword-Recherche über die Google Ads Keyword Planner API inklusive Intent-Clustering (ToFu, MoFu, High-Intent) und iterativer Verfeinerung. |
-| `ai-ads-pipeline skills` | Startet einen interaktiven Strategie-Chat basierend auf hinterlegten Google Ads Standard Operating Procedures (SOPs). |
-| `ai-ads-pipeline chat` | Startet eine Multi-Turn-Chat-Session mit einem spezifischen Agenten (`orchestrator`, `copywriter`, `reviewer`, `uploader`). |
-| `ai-ads-pipeline setup` | Interaktiver Einrichtungsassistent für Gemini API Key, Google Ads OAuth2 (Port 8085) und Standard-Kampagneneinstellungen. |
-| `ai-ads-pipeline refresh-token` | Erneuert sofort das Google Ads API OAuth2 Access-Token. |
-| `ai-ads-pipeline agent list` | Listet alle persistent gespeicherten KI-Agenten und deren Aufgabenbereiche auf. |
-
-### Detaillierte Befehlsbeschreibungen:
-
-* **Start the RSA Workflow**: Coordinates all 4 agents to fetch, write, sanitize, and upload paused RSA alternatives:
-  ```bash
-  ai-ads-pipeline run-workflow
-  ```
-  Optionally override the active framework for this run using the `-f` or `--framework` option:
-  ```bash
-  ai-ads-pipeline run-workflow --framework business
-  ```
-  Available frameworks: `angles` (default), `audiences`, `business`, `copywritings`, `sophistication`.
-
-* **Start the PMax Asset Group Workflow**: Creates new Performance Max (PMax) Asset Groups with 15 headlines (max 30 chars), 4 long headlines (max 90 chars), and 4 descriptions (max 90 chars) in `PAUSED` status:
-  ```bash
-  ai-ads-pipeline run-pmax
-  ```
-  Optionally specify a framework (defaults to `angles`):
-  ```bash
-  ai-ads-pipeline run-pmax --framework angles
-  ```
-
-* **Mass Pre-production & ETS Predictive Testing (`preproduce`)**:
-  - **Phase 0 Angle Discovery Engine**: Prior to asset creation, the preproduction agent executes an offer-tailored Angle Search to discover **40 unique, distinct positioning angles** (story spines & buyer motivators) tailored to the offer, industry, and landing page context.
-  - **Google Ads Account Baseline Stream**: Automatically pulls 30-day historical account performance metrics (`searchStream`) directly from the Google Ads API (CTR, CPC, CPM, CPL, Cost, Conversions) to establish an empirical performance baseline.
-  - **Exponential Triple Smoothing (Holt-Winters ETS) Forecasting**: Runs Level ($\alpha$), Trend ($\beta$), and Seasonality ($\gamma$) time-series smoothing over historical Google Ads baseline data combined with Swarm Winner Uplift to project a 30-day performance forecast (Total Spend, Conversions, CTR, CPC, CPL) with 95% confidence bounds.
-  - **Full 40 Asset-Group Swarm Evaluation**: Evaluates up to 40 top candidate asset groups via the 20-Agent Persona Swarm in complete tabular format and projects CTR, CPC, CPM, and CPL metrics:
-  ```bash
-  ai-ads-pipeline preproduce
-  ```
-  Options:
-  - `-t, --theme <topic>`: Campaign focus theme / topic
-  - `-k, --track <rsa|pmax>`: Campaign track (default `rsa`)
-  - `-c, --count <number>`: Number of AI ad alternatives to pre-produce (default `400`)
-  - `-u, --url <url>`: Target landing page URL for context scraping
-  - `--no-swarm`: Skip 20-Agent Persona Swarm testing
-
-* **Standalone 20-Agent Swarm Testing**: Run predictive asset testing directly across 20 test customer personas (sub-audiences) to get qualitative persona feedback and CTR/CPC/CPM/CPL projections:
-  ```bash
-  ai-ads-pipeline swarm-test --track rsa
-  ```
-
-* **Framework Chooser**: Select a framework for asset creation interactively, or pass the framework name directly. The selected framework becomes the default for future runs:
-  ```bash
-  ai-ads-pipeline framework
-  ```
-  Or set it directly:
-  ```bash
-  ai-ads-pipeline framework <angles|audiences|business|copywritings|sophistication|none>
-  ```
-
-* **Interactive Keyword Research**: Start an interactive chat session to generate keyword clusters based on real Google Ads Keyword Planner API data:
-  ```bash
-  ai-ads-pipeline keywords
-  ```
-  This command prompts you for a keyword theme, queries the Google Ads API, outputs a structured markdown report, saves raw ideas to `storage/runs/keywords-<theme>-raw.json` and the markdown report to `storage/runs/keywords-<theme>-report.md`, and maintains a feedback loop for refinement (e.g., "more B2B focus", "more local keywords").
-
-* **Interactive Strategy Chat (SOPs)**: Start an interactive chat session using your Google Ads strategy markdown documents (SOPs) as the knowledge base:
-  ```bash
-  ai-ads-pipeline skills
-  ```
-  This command lists all available strategy SOPs found in `src/strategies/`, lets you select one, and launches an advisor chat session where you can ask questions or evaluate your campaign metrics according to that specific SOP.
-
-* **Interactive Chat with AI Agents**: Chat directly with any persistent AI agent:
-  ```bash
-  ai-ads-pipeline chat
-  ```
-  Or target a specific agent by name:
-  ```bash
-  ai-ads-pipeline chat orchestrator
-  ```
-
-
-* **Interactive Setup**: Set up credentials and perform OAuth2 authentication:
-  ```bash
-  ai-ads-pipeline setup
-  ```
-
-* **Manual Token Refresh**: Refresh your Google Ads API access token immediately:
-  ```bash
-  ai-ads-pipeline refresh-token
-  ```
-
-* **Manage Agents**: List or view persistent AI agent configurations:
-  ```bash
-  ai-ads-pipeline agent list
-  ```
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for details.
 
 ---
 
-## Features
-
-- **Location-Independent Configs**: Configuration and storage directory paths are resolved relative to the package installation directory, allowing you to run the CLI from any directory without losing access tokens.
-- **Programmatic Sanitizer**: A hard fallback review module checks headlines and descriptions for exact lengths and forbidden characters to avoid API upload errors.
-- **Automatic Paused Status**: All new ad creatives are uploaded with a `PAUSED` status, allowing human review and approval in Google Ads Editor before going live.
-- **Antigravity CLI Guard**: Built-in environment detection ensures users are properly informed when attempting to run AI workloads outside of the Antigravity CLI environment.
-
----
-
-*This AI Agent was created with the help of Google Antigravity CLI*
+*Created with Google Antigravity CLI | 100% Compliant SEA Architectures*

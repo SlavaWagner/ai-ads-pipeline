@@ -1,0 +1,723 @@
+{
+    "name": "SWA AIP Asset-Pipeline RSA (Google Ads) - Mythen-Hook",
+    "flow": [
+        {
+            "id": 20,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                    {
+                        "name": "email",
+                        "value": "slavawagner.sw@gmail.com"
+                    },
+                    {
+                        "name": "customer_id",
+                        "value": "2586797344"
+                    },
+                    {
+                        "name": "Project",
+                        "value": "Slava Wagner"
+                    },
+                    {
+                        "name": "URL",
+                        "value": "https://slavawagner.de"
+                    },
+                    {
+                        "name": "Google Ads API Version",
+                        "value": "24"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": -304,
+                    "y": -15,
+                    "name": "Eingabe"
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        },
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Variable name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "any",
+                                    "label": "Variable value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Variable"
+                        },
+                        "type": "array",
+                        "label": "Variables",
+                        "validate": {
+                            "unique": {
+                                "by": "name"
+                            }
+                        }
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "email",
+                        "type": "any",
+                        "label": "email"
+                    },
+                    {
+                        "name": "customer_id",
+                        "type": "any",
+                        "label": "customer_id"
+                    },
+                    {
+                        "name": "Project",
+                        "type": "any",
+                        "label": "Project"
+                    },
+                    {
+                        "name": "URL",
+                        "type": "any",
+                        "label": "URL"
+                    },
+                    {
+                        "name": "Google Ads API Version",
+                        "type": "any",
+                        "label": "Google Ads API Version"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 8,
+            "module": "google-ads-campaign-management:makeApiCall",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 7459369
+            },
+            "mapper": {
+                "url": "/v{{20.`Google Ads API Version`}}/customers/{{20.customer_id}}/googleAds:searchStream",
+                "body": "{\r\n  \"query\": \"SELECT campaign.name, campaign.id, ad_group_ad.ad.id, ad_group_ad.ad.responsive_search_ad.headlines, ad_group_ad.ad.responsive_search_ad.descriptions, ad_group_ad.ad.final_urls, ad_group_ad.ad_group, metrics.all_conversions, metrics.cost_per_all_conversions, metrics.cost_micros FROM ad_group_ad WHERE ad_group_ad.ad.type = 'RESPONSIVE_SEARCH_AD' AND ad_group_ad.status = 'ENABLED' AND ad_group.status = 'ENABLED' AND campaign.status = 'PAUSED' AND segments.date DURING LAST_30_DAYS ORDER BY metrics.all_conversions DESC LIMIT 10\"\r\n}",
+                "method": "POST",
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 7,
+                    "y": -12,
+                    "name": "Ads (Google Ads)"
+                },
+                "restore": {
+                    "expect": {
+                        "qs": {
+                            "mode": "chose"
+                        },
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
+                        },
+                        "headers": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google-ads2"
+                            },
+                            "label": "Slava Wagner (Slava Wagner Onlinemarketing)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google-ads2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "text",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "GET",
+                                "POST",
+                                "PUT",
+                                "PATCH",
+                                "DELETE"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key"
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "qs",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key"
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Query String"
+                    },
+                    {
+                        "name": "body",
+                        "type": "any",
+                        "label": "Body"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 10,
+            "module": "builtin:BasicFeeder",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "array": "{{8.body[].results}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 291,
+                    "y": -4,
+                    "name": "RSA List"
+                },
+                "restore": {
+                    "expect": {
+                        "array": {
+                            "mode": "edit"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "mode": "edit",
+                        "name": "array",
+                        "spec": [],
+                        "type": "array",
+                        "label": "Array"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "ai-local-agent:RunLocalAIAgent",
+            "version": 0,
+            "parameters": {
+                "makeConnectionId": 7335897
+            },
+            "mapper": {
+                "files": [],
+                "message": "Bitte erstelle mir eine conversionstarke AI-Anzeigenalternative für meine bestehende responsive Suchanzeige und lade die AI-Anzeigenalternative wieder bei Google Ads hoch, in derselben Ad Group, aus der heraus die AI-Anzeigenalternative gebildet worden ist.\n\nHier ist die Bestandsanzeige, für die eine conversionstarke AI-Anzeigenalternative gebildet werden soll:\n\nHier ist das nachfolgende Thema:\n\nAnzeigentext: \"\r\n\r{{10.adGroupAd.ad.responsiveSearchAd.headlines[].text}} - {{10.adGroupAd.ad.responsiveSearchAd.descriptions[].text}}\"\n\nFinal URL:\n\"{{10.adGroupAd.ad.finalUrls[]}}\"\n\nAd Group Ad Resource Name: \"{{10.adGroupAd.ad.resourceName}}\"\n\nAd Group Resource Name:\n\"{{10.adGroupAd.adGroup}}\"\n\nCustomer ID: \"{{20.customer_id}}\"\n\nWichtig: Für alle API Calls bei Google Ads darfst du nur die API-Version: v{{20.`Google Ads API Version`}}verwenden! Es dürfen niemals API-Versionen unter {{20.`Google Ads API Version`}} verwendet werden. Bitte sende nur valide API Calls ab.\n\nExtrem wichtig: In deiner \"Knowlegde Base\" in den Tools liegen API Calls, die tatsächlich funktionieren! Diese kannst du dir anschauen.\n\n",
+                "timeout": "",
+                "threadId": "14117975431",
+                "outputType": "text",
+                "modelConfig": {
+                    "recursionLimit": 300,
+                    "iterationsFromHistoryCount": "30"
+                },
+                "defaultModel": "gemini-3.5-flash",
+                "systemPrompt": "Agent 1:  Der Creative Copywriter Agent (AI-Anzeigenalternativen)\n\nWichtig: Für alle API Calls bei Google Ads darfst du nur die API-Version: v{{20.`Google Ads API Version`}}verwenden! Es dürfen niemals API-Versionen unter {{20.`Google Ads API Version`}} verwendet werden.\n\nAufgabe: Lies dir das API Call Dokument in deiner Knowledge Base durch. In deiner \"Knowlegde Base\" in den Tools liegen API Calls, die tatsächlich funktionieren! Diese kannst du dir anschauen. Das Dokument in der Knowledge, auf die du Zugriff hast, heißt: \"Responsive_Search_Ad_Alternative_API_Calls_SWA_AI_Agent_Briefing\"\n\nRolle & System Prompt:\nDu bist ein High-End Google Ads Experte. Deine Aufgabe ist es, für eine bestehende responsive Suchanzeige eine conversionstärkere AI-Anzeigenalternative für das algorithmische Lernen von Google Ads zu erstellen. \n\nAufgabe 1: \nSieh dir die Themem meiner aktuellen Bestandsanzeige an, um in Aufgabe 2 eine AI-Anzeigenalternative zu erstellen:\n\nAnzeigentext: \"\r\n\r{{10.adGroupAd.ad.responsiveSearchAd.headlines[].text}} - {{10.adGroupAd.ad.responsiveSearchAd.descriptions[].text}}\"\n\nFinal URL:\n\"{{10.adGroupAd.ad.finalUrls[]}}\"\n\nAd Group Ad Resource Name: \"{{10.adGroupAd.ad.resourceName}}\"\n\nAd Group Resource Name:\n\"{{10.adGroupAd.adGroup}}\"\n\nCustomer ID: \"{{20.customer_id}}\"\n\nAufgabe 2:\n\nGeneriere exakt:\n15 Anzeigentitel (Headlines) mit maximal 30 Zeichen.\n4 Beschreibungen (Descriptions) mit maximal 70 Zeichen.\n4 Long Headlines mit maximal 70 Zeichen.\nAchte penibel auf die Zeichenbegrenzungen (Leerzeichen zählen mit).\nSchreibe in extrem hoher Qualität. Nutze keine Abkürzungen und vermeide reißerische Formulierungen wie \"Sofort\".\nNutze transaktionale Keywords und konkrete CTAs (z.B. \"Jetzt anmelden\", \"Kostenlose Beratung\", \"Jetzt beraten lassen\"), sofern sie in das Zeichenlimit passen.\nVerfasse die Texte passend zum Inhalt der Landingpage.\n\nDeine Aufgabe: Analysiere den Suchintent und die Landingpage, um eine Anzeigenalternative zu erstellen, die konsequent auf dem \"Mythen-Hook\" basiert und die Frage des Lesers: „Vielleicht glaube ich etwas Falsches.“ direkt beantwortet.\n \nVORGEHEN:\n1. Lies die bestehenden Headlines und Descriptions aufmerksam durch.\n2. Identifiziere den aktuellen Messaging-Ansatz der bestehenden Anzeige.\n3. Analysiere die Landingpage auf qualitative Signale, die sich für den \"Mythen-Hook\" eignen.\n4. Richte alle neuen Headlines und Descriptions konsequent auf diesen Hook aus.\n5. Schreibe die Texte unter Beachtung der Google Ads Zeichenbegrenzungen (Headlines max. 30 Z., Descriptions max. 90 Z.).\n \nVERFÜGBARE OPTIONEN / DIMENSIONEN:\n \nA) Die klassische Lüge:\n   Traditionelle Mythen entlarven.\n   Beispiel-Headline: \"Die große Fett-Lüge entlarvt\"\n   Beispiel-Headline: \"Warum Milch nicht gesund ist\"\n\nB) Branchen-Mythen:\n   Falsche Glaubenssätze in einer Nische.\n   Beispiel-Headline: \"Der Mythos vom schnellen Reichtum\"\n   Beispiel-Headline: \"Pmax-Kampagnen brauchen kein Budget\"\n\nC) Überholtes Wissen:\n   Schulwissen oder altes Denken widerlegen.\n   Beispiel-Headline: \"Das lernt man nicht an Unis\"\n   Beispiel-Headline: \"Warum 8 Stunden Schlaf ein Mythos sind\"\n\nD) Scheinwahrheiten:\n   Dinge, die logisch klingen, aber falsch sind.\n   Beispiel-Headline: \"Mehr Traffic bringt nicht mehr Umsatz\"\n   Beispiel-Headline: \"Warum Bio oft nicht nachhaltig ist\"\n \nREGELN:\n- Alle genutzten Claims, Zahlen und Beweise müssen direkt auf der Landingpage verifizierbar sein (Sicherheits- & Wahrheitsregel).\n- Das Messaging muss über alle Headlines und Descriptions hinweg konsistent sein und darf nicht zwischen verschiedenen Hooks springen.\n- Wähle die Dimension (A, B, C oder D), die am besten zur Zielgruppe und dem Angebot passt.\n\nÜbergib deinen Rohentwurf direkt an den Review Agent.\n\nAgent 3: Der Quality & Compliance Review Agent\nRolle & System Prompt:\nDu agierst als Google Ads AI Asset Review Agent. Dein Ziel ist es, die von der AI generierten Headlines, Long Headlines und Descriptions strengstens zu prüfen und zu korrigieren. Du optimierst nicht aggressiv, sondern normalisierst und glättest.\n\nPrüf- & Korrekturlogik (VERPFLICHTEND):\n\nSprachliche Glätte: Korrigiere abgehackte, ungewöhnlich rhythmisierte oder untypische Sätze zu flüssigem, normalem Werbedeutsch (wie von menschlichen Media Managern verfasst).\nKeine allgemeinen Aussagen: Entferne Phrasen wie „Perfekt für alle“, „Die beste Lösung“, „Einfach, schnell, effizient“. Ersetze sie durch konkrete, neutrale Fakten, die belegbar sind.\nStriktes Grounding: Keine Inhalte erfinden! Jede Aussage muss auf der Landingpage explizit vorkommen. Entferne oder entschärfe unbestätigte Nutzenversprechen oder emotionale Suggestionen.\nHarte Zeichenbegrenzungen:\nHeadlines: max. 30 Zeichen\nDescriptions: max. 70 Zeichen\nLong Headlines: max. 70 Zeichen\nAktion: Bei Überschreitung konsequent kürzen.\nEntfernung AI-typischer Muster: Entferne übermäßig glatte Phrasen, symmetrische Aufzählungen oder bedeutungslose Marketing-Floskeln.\nMenschlichkeit & Policy: Texte müssen nüchtern, werblich-konventionell, frei von Emotionalisierung und impliziten Leistungsversprechen sein. Keine Interpretation zwischen den Zeilen.\nNimm alle Korrekturen eigenständig vor.\n\nAgent 4: Der Formatting & Upload Agent\nRolle & System Prompt:\nDu bist der Data Engineer Agent. Du nimmst die geprüften und korrigierten Texte von Agent 3 und formatierst sie zwingend für den API-Upload.\n\nSchritt 1: Flat JSON Formatierung (Zwischenschritt für das Tool)\nGib das Ergebnis des Review-Prozesses strikt ohne Markdown-Formatierung (kein ```json ...) und ohne JSON-Arrays aus. Nutze exakt diese Namenskonvention in einem reinen JSON-Block:\n\n{\n  \"headline_1\": \"Text\",\n  \"headline_2\": \"Text\",\n  \"...\": \"...\",\n  \"headline_15\": \"Text\",\n  \"description_1\": \"Text\",\n  \"...\": \"...\",\n  \"description_4\": \"Text\",\n  \"long_headline_1\": \"Text\",\n  \"...\": \"...\",\n  \"long_headline_4\": \"Text\"\n}\nSchritt 2: Google Ads API Payload Erstellung\nNimm nun diese separierten Werte, die Ad Group ID und die Final URL der Ausgangsanzeige und baue den folgenden Payload für den Mutations-Call zusammen, damit die Alternative in derselben Ad Group angelegt wird.\n\nEndpoint Base Path: POST /v{{20.`Google Ads API Version`}}/customers/{customer_id}/adGroupAds:mutate\nHeader: Content-Type: application/json\nWichtig: Die neue Anzeige wird zwingend im Status \"PAUSED\" hochgeladen!\nZusammengebauter Payload für die API:\n\n{\n  \"operations\": [\n    {\n      \"create\": {\n        \"adGroup\": \"customers/{customer_id}/adGroups/{AD_GROUP_ID}\",\n        \"status\": \"PAUSED\",\n        \"ad\": {\n          \"finalUrls\": [\n            \"{FINAL_URL}\"\n          ],\n          \"responsiveSearchAd\": {\n            \"headlines\": [\n              { \"text\": \"{headline_1}\" },\n              { \"text\": \"{headline_2}\" },\n              { \"text\": \"{headline_3}\" },\n              { \"text\": \"{headline_4}\" },\n              { \"text\": \"{headline_5}\" },\n              { \"text\": \"{headline_6}\" },\n              { \"text\": \"{headline_7}\" },\n              { \"text\": \"{headline_8}\" },\n              { \"text\": \"{headline_9}\" },\n              { \"text\": \"{headline_10}\" },\n              { \"text\": \"{headline_11}\" },\n              { \"text\": \"{headline_12}\" },\n              { \"text\": \"{headline_13}\" },\n              { \"text\": \"{headline_14}\" },\n              { \"text\": \"{headline_15}\" }\n            ],\n            \"descriptions\": [\n              { \"text\": \"{description_1}\" },\n              { \"text\": \"{description_2}\" },\n              { \"text\": \"{description_3}\" },\n              { \"text\": \"{description_4}\" }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}",
+                "reasoningEffort": "low"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 623,
+                    "y": -6,
+                    "name": "AI Asset Creation Agent"
+                },
+                "restore": {
+                    "expect": {
+                        "files": {
+                            "mode": "chose"
+                        },
+                        "outputType": {
+                            "label": "Text"
+                        },
+                        "defaultModel": {
+                            "mode": "chose",
+                            "label": "Gemini 3.5 FlashFrontier-level intelligence optimized for real-world tasks at higher speed and lower cost"
+                        },
+                        "reasoningEffort": {
+                            "mode": "chose",
+                            "label": "Low"
+                        }
+                    },
+                    "parameters": {
+                        "makeConnectionId": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "gemini-ai-q9zyjp"
+                            },
+                            "label": "Slava Wagner"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "makeConnectionId",
+                        "type": "account:ai-provider,openai-gpt-3,anthropic-claude,gemini-ai-q9zyjp,ai-agent-foundry-openai,ai-agent-foundry-non-openai,mistral-ai,cohere,groq,ai-agent-xai,amazon-bedrock,ai-agent-openai-compatible",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "defaultModel",
+                        "type": "select",
+                        "label": "Model",
+                        "required": true
+                    },
+                    {
+                        "name": "reasoningEffort",
+                        "type": "select",
+                        "label": "Reasoning effort",
+                        "validate": {
+                            "enum": [
+                                "low",
+                                "medium",
+                                "high"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "systemPrompt",
+                        "type": "text",
+                        "label": "Instructions"
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Input",
+                        "required": true
+                    },
+                    {
+                        "name": "files",
+                        "spec": [
+                            {
+                                "name": "fileName",
+                                "type": "filename",
+                                "label": "File name",
+                                "semantic": "file:name"
+                            },
+                            {
+                                "name": "data",
+                                "type": "buffer",
+                                "label": "Data",
+                                "semantic": "file:data"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Input files"
+                    },
+                    {
+                        "name": "threadId",
+                        "type": "text",
+                        "label": "Conversation ID",
+                        "validate": {
+                            "max": 256
+                        }
+                    },
+                    {
+                        "name": "modelConfig",
+                        "spec": [
+                            {
+                                "name": "tokenLimit",
+                                "type": "hidden",
+                                "label": "Max output tokens"
+                            },
+                            {
+                                "name": "recursionLimit",
+                                "type": "hidden",
+                                "label": "Steps per agent call"
+                            },
+                            {
+                                "name": "iterationsFromHistoryCount",
+                                "type": "number",
+                                "label": "Maximum conversation history"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Model configuration"
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "number",
+                        "label": "Step timeout",
+                        "validate": {
+                            "max": 600,
+                            "min": 120
+                        }
+                    },
+                    {
+                        "name": "outputType",
+                        "type": "select",
+                        "label": "Response format",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "text",
+                                "make-schema",
+                                "udt-schema"
+                            ]
+                        }
+                    }
+                ]
+            },
+            "tools": [
+                {
+                    "name": "Agent knowledge",
+                    "description": "Search uploaded files using semantic similarity to retrieve relevant facts and context needed to answer the user’s question. Use this tool when the answer depends on information contained in the uploaded documents.",
+                    "flow": [
+                        {
+                            "id": 3,
+                            "module": "knowledge:KnowledgeStandAlone",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "limit": "50",
+                                "query": "{{2.query}}",
+                                "fileIds": [],
+                                "filestorage": [
+                                    "fa640c68-ba18-48c1-ad47-484c2aa01359"
+                                ]
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 625,
+                                    "y": -318,
+                                    "name": "Knowledge Base"
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "query": {
+                                            "extra": {
+                                                "aiHelp": "A concise natural-language description of the information to look for. The query is embedded and matched by semantic similarity (cosine distance), so it should express intent and meaning, not exact phrasing, keywords, or technical instructions."
+                                            }
+                                        }
+                                    }
+                                },
+                                "expect": [
+                                    {
+                                        "name": "filestorage",
+                                        "type": "filestorage",
+                                        "label": "Knowledge files"
+                                    },
+                                    {
+                                        "name": "query",
+                                        "type": "text",
+                                        "label": "Search query",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "fileIds",
+                                        "type": "hidden",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "limit",
+                                        "type": "number",
+                                        "label": "Limit",
+                                        "required": true,
+                                        "validate": {
+                                            "max": 500,
+                                            "min": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Make an API Call",
+                    "description": "Performs an arbitrary authorized API call.",
+                    "flow": [
+                        {
+                            "id": 4,
+                            "module": "google-ads-campaign-management:makeApiCall",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 7459369
+                            },
+                            "mapper": {
+                                "qs": "{{2.qs}}",
+                                "url": "{{2.url}}",
+                                "body": "{{2.body}}",
+                                "method": "{{2.method}}",
+                                "headers": "{{2.headers}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 957,
+                                    "y": -4,
+                                    "name": "Google Ads API Calls"
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "qs": {
+                                            "mode": "edit"
+                                        },
+                                        "url": {
+                                            "extra": {
+                                                "aiHelp": "Enter a path relative to `https://googleads.googleapis.com`.\nFor example, `/vX/customers:listAccessibleCustomers`, where `X` is a version number."
+                                            }
+                                        },
+                                        "method": {
+                                            "mode": "edit"
+                                        },
+                                        "headers": {
+                                            "mode": "edit",
+                                            "extra": {
+                                                "aiHelp": "You don't have to add authorization headers; we already did that for you."
+                                            }
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-ads2"
+                                            },
+                                            "label": "Slava Wagner (Slava Wagner Onlinemarketing)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google-ads2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "url",
+                                        "type": "text",
+                                        "label": "URL",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "method",
+                                        "type": "select",
+                                        "label": "Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "GET",
+                                                "POST",
+                                                "PUT",
+                                                "PATCH",
+                                                "DELETE"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "headers",
+                                        "spec": [
+                                            {
+                                                "name": "key",
+                                                "type": "text",
+                                                "label": "Key"
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Headers"
+                                    },
+                                    {
+                                        "name": "qs",
+                                        "spec": [
+                                            {
+                                                "name": "key",
+                                                "type": "text",
+                                                "label": "Key"
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Query String"
+                                    },
+                                    {
+                                        "name": "body",
+                                        "type": "any",
+                                        "label": "Body"
+                                    },
+                                    {
+                                        "name": "url",
+                                        "type": "text",
+                                        "label": "URL",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "method",
+                                        "type": "select",
+                                        "label": "Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "GET",
+                                                "POST",
+                                                "PUT",
+                                                "PATCH",
+                                                "DELETE"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "headers",
+                                        "spec": [
+                                            {
+                                                "name": "key",
+                                                "type": "text",
+                                                "label": "Key"
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Headers"
+                                    },
+                                    {
+                                        "name": "qs",
+                                        "spec": [
+                                            {
+                                                "name": "key",
+                                                "type": "text",
+                                                "label": "Key"
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Query String"
+                                    },
+                                    {
+                                        "name": "body",
+                                        "type": "any",
+                                        "label": "Body"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
